@@ -1,0 +1,2073 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria - Comando da Alegria</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* RESET E CONFIGURAÇÕES GERAIS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #fafafa;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        body.menu-active {
+            overflow: hidden;
+        }
+
+        /* URL DA IMAGEM DE FUNDO DO HERO */
+        :root {
+            --bg-image: url('https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/fundo%20comando.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvZnVuZG8gY29tYW5kby5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgyMjYzNDM2LCJleHAiOjQ5MDQzMjc0MzZ9.aTspCSOV-Us9TaoLBs_cvr-PEcFPD0XwL9dZO6cdWto');
+        }
+
+        /* ------------------------------------ */
+        /* TELA DE CARREGAMENTO (PRELOADER)     */
+        /* ------------------------------------ */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-image: var(--bg-image);
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        #preloader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .loader-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .loader-balloon {
+            width: 250px;
+            height: auto;
+            animation: pulse-balloon 1.5s ease-in-out infinite;
+        }
+
+        .loader-text {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: #ff2a74;
+            text-shadow: 0 2px 4px rgba(255, 255, 255, 0.9);
+            animation: pulse-text 1.5s ease-in-out infinite;
+        }
+
+        /* ------------------------------------ */
+        /* CABEÇALHO (ILHA MEDIANA FIXA)        */
+        /* ------------------------------------ */
+        .floating-island {
+            position: fixed;
+            top: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 92%;
+            max-width: 1200px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 50px;
+            padding: 7px 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            z-index: 1002;
+            transition: opacity 0.3s ease;
+            opacity: 1;
+        }
+
+        body.menu-active .floating-island {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            height: 66px;
+            margin-top: -10px;
+            margin-bottom: -10px;
+            width: auto;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-link:hover .logo-img {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .desktop-nav {
+            display: none;
+        }
+
+        .desktop-nav ul {
+            list-style: none;
+            display: flex;
+            gap: 24px;
+        }
+
+        .desktop-nav a {
+            text-decoration: none;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #444;
+            transition: color 0.2s, transform 0.2s;
+        }
+
+        .desktop-nav ul li:nth-child(1) a:hover {
+            color: #ff2a74;
+        }
+
+        .desktop-nav ul li:nth-child(2) a:hover {
+            color: #00c853;
+        }
+
+        .desktop-nav ul li:nth-child(3) a:hover {
+            color: #ffb703;
+        }
+
+        .desktop-nav ul li:nth-child(4) a:hover {
+            color: #00b4d8;
+        }
+
+        .desktop-nav ul li:nth-child(5) a:hover {
+            color: #ff2a74;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .btn-orcamento {
+            background-color: #ffb703;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            padding: 10px 22px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 10px rgba(255, 183, 3, 0.3);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .btn-orcamento:hover {
+            background-color: #e5a402;
+            transform: translateY(-2px);
+        }
+
+        .menu-toggle {
+            background: none;
+            border: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            cursor: pointer;
+            width: 28px;
+            height: 28px;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 28px;
+            height: 3px;
+            background-color: #ff2a74;
+            border-radius: 2px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .menu-close-btn {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            background: none;
+            border: none;
+            font-size: 2.2rem;
+            color: #ff2a74;
+            cursor: pointer;
+            transition: transform 0.2s;
+            z-index: 1003;
+        }
+
+        .menu-close-btn:hover {
+            transform: scale(1.1) rotate(90deg);
+        }
+
+        /* ------------------------------------ */
+        /* MENU MOBILE OVERLAY                  */
+        /* ------------------------------------ */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100vh;
+            background: #FFF0F5;
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px 20px 30px 20px;
+            transform: translateY(-100%);
+            transition: transform 0.4s cubic-bezier(0.77, 0.2, 0.05, 1);
+        }
+
+        .mobile-menu-overlay.open {
+            transform: translateY(0);
+        }
+
+        .menu-mobile-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .menu-logo-img {
+            height: 140px;
+            width: auto;
+            filter: drop-shadow(0 8px 15px rgba(255, 42, 116, 0.25)) drop-shadow(0 4px 6px rgba(0, 200, 83, 0.15));
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .mobile-nav-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .mobile-nav-links a {
+            text-decoration: none;
+            font-size: 1.6rem;
+            font-weight: 900;
+            transition: transform 0.2s;
+            display: inline-block;
+        }
+
+        .mobile-nav-links a:not(.btn-menu-orcamento):hover {
+            transform: scale(1.1);
+        }
+
+        .mobile-nav-links li:nth-child(1) a {
+            color: #ff2a74;
+        }
+
+        .mobile-nav-links li:nth-child(2) a {
+            color: #00c853;
+        }
+
+        .mobile-nav-links li:nth-child(3) a {
+            color: #ffb703;
+        }
+
+        .mobile-nav-links li:nth-child(4) a {
+            color: #00b4d8;
+        }
+
+        .mobile-nav-links li:nth-child(5) a {
+            color: #ff2a74;
+        }
+
+        .mobile-nav-links .btn-menu-orcamento {
+            background: linear-gradient(135deg, #ffb703, #fa9f00);
+            color: white !important;
+            padding: 12px 40px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(255, 183, 3, 0.3);
+            margin-top: 5px;
+        }
+
+        .menu-social-footer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .menu-social-text {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #666;
+            letter-spacing: 0.5px;
+        }
+
+        .menu-social-icons {
+            display: flex;
+            gap: 24px;
+        }
+
+        .menu-social-icons a {
+            font-size: 1.8rem;
+            transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+        }
+
+        .menu-social-icons a:hover {
+            transform: translateY(-5px) scale(1.15);
+        }
+
+        .icon-instagram {
+            color: #e1306c;
+        }
+
+        .icon-facebook {
+            color: #1877f2;
+        }
+
+        .icon-whatsapp {
+            color: #25d366;
+        }
+
+        /* ------------------------------------ */
+        /* SEÇÃO HERO                           */
+        /* ------------------------------------ */
+        .hero {
+            min-height: 100vh;
+            background-image: var(--bg-image);
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 150px 20px 60px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.12);
+            z-index: 1;
+        }
+
+        .hero-content {
+            width: 100%;
+            max-width: 650px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .balloon-container {
+            width: 85%;
+            max-width: 280px;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .img-balloon {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.2));
+        }
+
+        .hero-card {
+            background: rgba(255, 255, 255, 0.22);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 35px;
+            padding: 32px 24px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
+        }
+
+        .hero-title {
+            color: #ffffff;
+            font-size: 1.6rem;
+            font-weight: 900;
+            line-height: 1.3;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        .hero-text {
+            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            line-height: 1.5;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+            max-width: 480px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: 16px;
+        }
+
+        .btn-hero {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 18px 28px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 1.1rem;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: none;
+        }
+
+        .btn-pink {
+            background: linear-gradient(135deg, #ff2a74, #ff5b94);
+            color: #fff;
+            border-bottom: 4px solid #c91450;
+        }
+
+        .btn-green {
+            background: linear-gradient(135deg, #00c853, #26e073);
+            color: #fff;
+            border-bottom: 4px solid #00963e;
+        }
+
+        .btn-hero:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.22);
+        }
+
+        .btn-hero:active {
+            transform: translateY(-1px);
+            border-bottom-width: 1px;
+        }
+
+        /* ==========================================================================
+           TRANSIÇÕES DE DEGRADÊ ENTRE AS SEÇÕES (CONTINUIDADE SUAVIZADA)
+           ========================================================================== */
+
+        .characters-section {
+            background: linear-gradient(180deg, #fafafa 0%, #fff0f7 100%);
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .services-section {
+            background: linear-gradient(180deg, #fff0f7 0%, #f0faff 100%);
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .ludicas-section {
+            background: linear-gradient(180deg, #f0faff 0%, #fffcf0 100%);
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .about-section {
+            background: linear-gradient(180deg, #fffcf0 0%, #f0fff4 100%);
+            padding: 80px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .destaques-section {
+            background: linear-gradient(180deg, #f0fff4 0%, #fff0f7 100%);
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        /* ------------------------------------ */
+        /* SEÇÃO PERSONAGENS                    */
+        /* ------------------------------------ */
+        .characters-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .filter-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 45px;
+            background: #ffffff;
+            padding: 24px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+            border: 1px dashed rgba(0, 180, 216, 0.2);
+        }
+
+        .category-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .pill-btn {
+            background-color: #f1f5f9;
+            color: #444;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .pill-btn:hover {
+            transform: scale(1.05);
+            background-color: #e2e8f0;
+        }
+
+        .pill-btn.active {
+            background-color: #ff2a74;
+            color: white;
+            box-shadow: 0 4px 12px rgba(255, 42, 116, 0.25);
+        }
+
+        .search-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 320px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 20px 12px 42px;
+            border-radius: 25px;
+            border: 2px solid #e2e8f0;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #333;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: #00b4d8;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #aaa;
+            font-size: 1.1rem;
+        }
+
+        .characters-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .character-card {
+            flex: 0 1 calc(50% - 10px);
+            min-width: 140px;
+        }
+
+        .character-card {
+            background: #ffffff;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-top-width: 5px;
+            border-top-style: solid;
+            border-right: none;
+            border-bottom: none;
+            border-left: none;
+        }
+
+        .character-card:nth-child(4n+1) {
+            border-color: #ff2a74;
+        }
+
+        .character-card:nth-child(4n+2) {
+            border-color: #00c853;
+        }
+
+        .character-card:nth-child(4n+3) {
+            border-color: #00b4d8;
+        }
+
+        .character-card:nth-child(4n+4) {
+            border-color: #ffb703;
+        }
+
+        .character-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .character-img-box {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            overflow: hidden;
+            background-color: #f7f7f7;
+        }
+
+        .character-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            transition: transform 0.5s ease;
+        }
+
+        .character-card:hover .character-img {
+            transform: scale(1.08);
+        }
+
+        .character-info {
+            padding: 16px;
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #222;
+        }
+
+        .no-results {
+            grid-column: 1 / -1;
+            padding: 50px 20px;
+            color: #777;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .load-more-container {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .btn-ver-mais {
+            background: linear-gradient(135deg, #00b4d8, #0096b4);
+            color: white;
+            border: none;
+            padding: 14px 36px;
+            border-radius: 30px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 6px 15px rgba(0, 180, 216, 0.25);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-ver-mais:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 180, 216, 0.35);
+        }
+
+        /* ------------------------------------ */
+        /* SEÇÃO: SERVIÇOS                      */
+        /* ------------------------------------ */
+        .services-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 40px;
+            justify-content: center;
+        }
+
+        .service-card {
+            flex: 0 1 100%;
+        }
+
+        .service-card {
+            background: #ffffff;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(255, 140, 0, 0.05);
+            border-top-width: 5px;
+            border-top-style: solid;
+            border-right: none;
+            border-bottom: none;
+            border-left: none;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-card:nth-child(4n+1) {
+            border-color: #ff2a74;
+        }
+
+        .service-card:nth-child(4n+2) {
+            border-color: #00c853;
+        }
+
+        .service-card:nth-child(4n+3) {
+            border-color: #00b4d8;
+        }
+
+        .service-card:nth-child(4n+4) {
+            border-color: #ffb703;
+        }
+
+        .service-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-img-box {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            background-color: #f8fafc;
+        }
+
+        .service-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            transition: transform 0.5s ease;
+        }
+
+        .service-card:hover .service-img {
+            transform: scale(1.08);
+        }
+
+        .service-info {
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            flex-grow: 1;
+            text-align: left;
+        }
+
+        .service-title {
+            font-size: 1.35rem;
+            font-weight: 900;
+        }
+
+        .service-card:nth-child(3n+1) .service-title {
+            color: #ff2a74;
+        }
+
+        .service-card:nth-child(3n+2) .service-title {
+            color: #00c853;
+        }
+
+        .service-card:nth-child(3n+3) .service-title {
+            color: #00b4d8;
+        }
+
+        .service-desc {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.6;
+            font-weight: 600;
+        }
+
+        /* ------------------------------------------- */
+        /* ÁREA EXCLUSIVA: EXPERIÊNCIAS LÚDICAS (FAQ)  */
+        /* ------------------------------------------- */
+        .ludicas-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .ludicas-subtitle {
+            font-size: 1.05rem;
+            color: #666;
+            margin-top: 10px;
+            margin-bottom: 35px;
+            font-weight: 600;
+        }
+
+        .accordion-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            text-align: left;
+        }
+
+        .accordion-item {
+            background: #ffffff;
+            border: 2px solid #f1f5f9;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+            transition: all 0.3s ease;
+        }
+
+        .accordion-header {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 20px 24px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #333;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .accordion-header:hover {
+            background: #fff5f8;
+            color: #ff2a74;
+        }
+
+        .accordion-header i {
+            font-size: 0.9rem;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: #ff2a74;
+        }
+
+        .accordion-item.active {
+            border-color: #ffb703;
+            box-shadow: 0 6px 20px rgba(255, 183, 3, 0.15);
+        }
+
+        .accordion-item.active .accordion-header {
+            background: #fffdf6;
+            color: #e5a402;
+        }
+
+        .accordion-item.active .accordion-header i {
+            transform: rotate(180deg);
+            color: #e5a402;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 0 24px;
+            background: #ffffff;
+        }
+
+        .accordion-content p {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.6;
+            padding-bottom: 20px;
+            font-weight: 600;
+        }
+
+        /* ------------------------------------ */
+        /* SEÇÃO SOBRE NÓS                      */
+        /* ------------------------------------ */
+        .about-container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .about-image-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 420px;
+            z-index: 2;
+        }
+
+        .about-img {
+            width: 100%;
+            height: auto;
+            border-radius: 35px;
+            box-shadow: 0 15px 35px rgba(255, 42, 116, 0.1);
+            border: 8px solid #ffffff;
+            transform: rotate(-3deg);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            object-fit: cover;
+            display: block;
+        }
+
+        .about-image-wrapper:hover .about-img {
+            transform: rotate(0deg) scale(1.03);
+        }
+
+        .about-image-bg {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 100%;
+            height: 100%;
+            background-color: #ff2a74;
+            border-radius: 35px;
+            z-index: -1;
+            transform: rotate(4deg);
+            opacity: 0.15;
+            transition: transform 0.3s ease;
+        }
+
+        .about-content {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            text-align: center;
+        }
+
+        .about-tag {
+            color: #ff2a74;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            display: inline-block;
+        }
+
+        .about-title {
+            font-size: 2.1rem;
+            font-weight: 900;
+            color: #222;
+            line-height: 1.2;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            color: #444;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .about-highlight-box {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin-top: 15px;
+            text-align: left;
+            max-width: 550px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .about-feature {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px dashed rgba(255, 42, 116, 0.2);
+        }
+
+        .about-feature:last-child {
+            border-bottom: none;
+        }
+
+        .about-feature-icon {
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .about-feature-icon.pink {
+            background: rgba(255, 42, 116, 0.1);
+            color: #ff2a74;
+        }
+
+        .about-feature-icon.blue {
+            background: rgba(0, 180, 216, 0.15);
+            color: #00b4d8;
+        }
+
+        .about-feature-text {
+            font-size: 1.05rem;
+            color: #333;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .about-feature-text span {
+            font-weight: 400;
+            color: #555;
+            display: block;
+            font-size: 0.95rem;
+            margin-top: 2px;
+        }
+
+        /* ==========================================================================
+           SEÇÃO: CARROSSEL DE DESTAQUES 
+           ========================================================================== */
+        .destaques-container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .carousel-wrapper {
+            position: relative;
+            max-width: 900px;
+            margin: 40px auto 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .carousel-track {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 20px;
+            padding: 10px;
+            scrollbar-width: none;
+        }
+
+        .carousel-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .carousel-card {
+            flex: 0 0 85%;
+            scroll-snap-align: center;
+            background: #fff;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            border-top-width: 5px;
+            border-top-style: solid;
+            border-right: none;
+            border-bottom: none;
+            border-left: none;
+            text-align: left;
+            transition: transform 0.3s;
+        }
+
+        .carousel-card:nth-child(4n+1) {
+            border-color: #ff2a74;
+        }
+
+        .carousel-card:nth-child(4n+2) {
+            border-color: #00c853;
+        }
+
+        .carousel-card:nth-child(4n+3) {
+            border-color: #00b4d8;
+        }
+
+        .carousel-card:nth-child(4n+4) {
+            border-color: #ffb703;
+        }
+
+        .carousel-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .carousel-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .carousel-content {
+            padding: 25px;
+        }
+
+        .carousel-content h3 {
+            font-size: 1.4rem;
+            color: #ff2a74;
+            margin-bottom: 10px;
+            font-weight: 900;
+        }
+
+        .carousel-content p {
+            color: #555;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+
+        .carousel-btn {
+            background: #ff2a74;
+            color: #fff;
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            position: absolute;
+            z-index: 10;
+            box-shadow: 0 4px 10px rgba(255, 42, 116, 0.3);
+            transition: transform 0.2s, background 0.2s;
+            display: none;
+        }
+
+        .carousel-btn:hover {
+            transform: scale(1.1);
+            background: #e61b5f;
+        }
+
+        .prev-btn {
+            left: -22px;
+        }
+
+        .next-btn {
+            right: -22px;
+        }
+
+        /* ==========================================================================
+           CONTATO REESTRUTURADO E MAIS PROFISSIONAL (ALTA CONVERSÃO)
+           ========================================================================== */
+        .contact-cta-section {
+            background: linear-gradient(180deg, #fff0f7 0%, #e8f7ff 100%);
+            padding: 100px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(50px);
+            z-index: 0;
+            opacity: 0.35;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        .cta-shape-1 {
+            width: 350px;
+            height: 350px;
+            background: #ff2a74;
+            top: -80px;
+            left: -100px;
+        }
+
+        .cta-shape-2 {
+            width: 300px;
+            height: 300px;
+            background: #00b4d8;
+            bottom: -80px;
+            right: -50px;
+            animation-delay: -3s;
+        }
+
+        .contact-cta-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 60px 40px;
+            border-radius: 40px;
+            box-shadow: 0 20px 50px rgba(0, 119, 182, 0.12);
+            position: relative;
+            z-index: 1;
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .cta-urgency-tag {
+            background: #fff0f5;
+            color: #ff2a74;
+            font-weight: 900;
+            font-size: 0.95rem;
+            padding: 8px 24px;
+            border-radius: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            border: 1px dashed #ff2a74;
+            margin-bottom: 5px;
+        }
+
+        .contact-cta-title {
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: #222;
+            line-height: 1.2;
+        }
+
+        .contact-cta-title span {
+            color: #ff2a74;
+        }
+
+        .contact-cta-subtitle {
+            font-size: 1.2rem;
+            color: #555;
+            font-weight: 600;
+            line-height: 1.6;
+            max-width: 650px;
+            margin-bottom: 10px;
+        }
+
+        .cta-benefits {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+
+        .cta-benefits span {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #444;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cta-benefits i {
+            color: #00c853;
+            font-size: 1.2rem;
+        }
+
+        .btn-cta-whatsapp {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            background: linear-gradient(135deg, #25d366 0%, #1ecc5c 100%);
+            color: #ffffff !important;
+            padding: 22px 50px;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: 900;
+            text-decoration: none;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-bottom: 5px solid #169c46;
+            animation: pulse-btn 2s infinite;
+        }
+
+        .btn-cta-whatsapp:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(37, 211, 102, 0.5);
+            color: #ffffff;
+            animation: none;
+        }
+
+        .btn-cta-whatsapp:active {
+            transform: translateY(-1px);
+            border-bottom-width: 2px;
+        }
+
+        @keyframes pulse-btn {
+            0% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6);
+            }
+
+            70% {
+                box-shadow: 0 0 0 20px rgba(37, 211, 102, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+            }
+        }
+
+        /* ==========================================================================
+           RODAPÉ (MAIS ELEGANTE E HARMONIZADO)
+           ========================================================================== */
+        .site-footer {
+            background: linear-gradient(135deg, #0096c7 0%, #023e8a 100%);
+            color: #ffffff;
+            font-family: 'Nunito', sans-serif;
+            position: relative;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 60px 20px 40px;
+            gap: 30px;
+        }
+
+        .footer-col {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .footer-col-logo {
+            flex: 1.5;
+            min-width: 200px;
+        }
+
+        .footer-logo-img {
+            max-height: 70px;
+            width: auto;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+            transition: max-height 0.3s ease;
+        }
+
+        .footer-col h4 {
+            color: #ffffff;
+            font-size: 1.2rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-col ul li a {
+            color: #e0f6ff;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 700;
+            transition: color 0.2s, transform 0.2s;
+            display: inline-block;
+        }
+
+        .footer-col ul li a:hover {
+            color: #ffb703;
+            transform: translateX(4px);
+        }
+
+        .footer-col-contact {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            flex: 1.2;
+        }
+
+        .footer-social-icons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .footer-social-icons a {
+            color: #ffffff;
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.15);
+            width: 44px;
+            height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 1.4rem;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .footer-social-icons a:hover {
+            background: #ffb703;
+            color: #023e8a;
+            transform: translateY(-5px) rotate(8deg);
+            box-shadow: 0 5px 15px rgba(255, 183, 3, 0.4);
+        }
+
+        .btn-footer-contato {
+            background-color: #ffb703;
+            color: #023e8a;
+            padding: 12px 32px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 183, 3, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-footer-contato:hover {
+            background-color: #ffffff;
+            transform: translateY(-3px);
+            color: #00b4d8;
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .footer-bottom {
+            background-color: #03045e;
+            padding: 20px;
+            text-align: center;
+            font-size: 0.95rem;
+            color: #baddff;
+            font-weight: 700;
+        }
+
+        /* ------------------------------------ */
+        /* ANIMAÇÕES                            */
+        /* ------------------------------------ */
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-12px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        @keyframes pulse-balloon {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes pulse-text {
+            0% {
+                opacity: 0.6;
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.02);
+            }
+
+            100% {
+                opacity: 0.6;
+            }
+        }
+
+        /* ==========================================================================
+           BOTÃO WHATSAPP FIXO
+           ========================================================================== */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background-color: #25d366;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 999;
+            transition: transform 0.2s;
+            text-decoration: none;
+            color: #ffffff;
+        }
+
+        .whatsapp-float i {
+            font-size: 34px;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            color: #ffffff;
+        }
+
+        /* ------------------------------------ */
+        /* MEDIA QUERIES                        */
+        /* ------------------------------------ */
+        @media (max-width: 767px) {
+            .footer-container {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 30px 15px;
+                padding: 40px 20px 30px;
+                text-align: left;
+            }
+
+            .footer-col {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .footer-col-logo {
+                grid-column: span 2;
+                align-items: center;
+            }
+
+            .footer-col-contact {
+                grid-column: span 2;
+                align-items: center;
+                text-align: center;
+                margin-top: 10px;
+            }
+
+            .footer-logo-img {
+                max-height: 120px;
+                margin-bottom: 0;
+            }
+
+            .footer-col h4 {
+                margin-bottom: 15px;
+                font-size: 1.1rem;
+            }
+
+            .footer-col ul {
+                align-items: flex-start;
+            }
+
+            .contact-cta-title {
+                font-size: 2.2rem;
+            }
+
+            .btn-cta-whatsapp {
+                padding: 16px 32px;
+                font-size: 1.15rem;
+                width: 100%;
+                text-align: center;
+            }
+
+            .contact-cta-card {
+                padding: 40px 20px;
+                border-radius: 30px;
+            }
+
+            .cta-benefits span {
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .contact-cta-card {
+                padding: 60px 50px;
+            }
+
+            .carousel-card {
+                flex: 0 0 calc(50% - 10px);
+            }
+
+            .carousel-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .floating-island {
+                padding: 10px 40px;
+                top: 24px;
+            }
+
+            .logo-img {
+                height: 76px;
+                margin-top: -10px;
+                margin-bottom: -10px;
+            }
+
+            .menu-logo-img {
+                height: 160px;
+            }
+
+            .desktop-nav {
+                display: block;
+            }
+
+            .menu-toggle {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 2.2rem;
+            }
+
+            .hero-text {
+                font-size: 1.25rem;
+            }
+
+            .hero-card {
+                padding: 45px 40px;
+                border-radius: 45px;
+            }
+
+            .hero-buttons {
+                flex-direction: row;
+                justify-content: center;
+                gap: 20px;
+            }
+
+            .btn-hero {
+                width: auto;
+                min-width: 240px;
+                padding: 18px 32px;
+            }
+
+            .balloon-container {
+                max-width: 340px;
+            }
+
+            .about-container {
+                flex-direction: row;
+                gap: 60px;
+                align-items: center;
+            }
+
+            .about-image-wrapper {
+                flex: 1;
+                max-width: 440px;
+            }
+
+            .about-content {
+                flex: 1.2;
+                text-align: left;
+            }
+
+            .about-title {
+                font-size: 2.5rem;
+            }
+
+            .about-text {
+                margin: 0;
+            }
+
+            .about-highlight-box {
+                margin-left: 0;
+                margin-right: 0;
+                max-width: 100%;
+            }
+
+            .filter-controls {
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 16px 30px;
+            }
+
+            .character-card {
+                flex: 0 1 calc(25% - 18px);
+            }
+
+            .service-card {
+                flex: 0 1 calc(33.333% - 20px);
+            }
+
+            .carousel-card {
+                flex: 0 0 calc(33.333% - 13.33px);
+            }
+
+            .footer-logo-img {
+                max-height: 160px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="floating-island">
+        <div class="header-container">
+            <a href="index.html#" class="logo-link">
+                <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Design%20sem%20nome%20(14).png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvRGVzaWduIHNlbSBub21lICgxNCkucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjI2NzM5MiwiZXhwIjo0OTA0MzMxMzkyfQ.uWlYl8bEvRWtYICesH-nGWzz-EP0utXr5muWh_RpNf0"
+                    alt="Balão Logo" class="logo-img">
+            </a>
+
+            <nav class="desktop-nav">
+                <ul>
+                    <li><a href="index.html#">Início</a></li>
+                    <li><a href="index.html#personagens">Personagens</a></li>
+                    <li><a href="index.html#servicos">Serviços</a></li>
+                    <li><a href="index.html#sobre">Sobre Nós</a></li>
+                    <li><a href="index.html#destaques">Destaques</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <a href="index.html#contato-rapido" class="btn-orcamento">Fale Conosco</a>
+                <button class="menu-toggle" aria-label="Abrir Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="mobile-menu-overlay" id="mobileMenu">
+        <button class="menu-close-btn" id="menuCloseBtn" aria-label="Fechar Menu">&times;</button>
+
+        <div class="menu-mobile-header">
+            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/3422ba6e-664b-4a8a-a483-64cb728c37ea.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvMzQyMmJhNmUtNjY0Yi00YThhLWE0ODMtNjRjYjcyOGMzN2VhLnBuZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODIyNjM1MDEsImV4cCI6NDkwNDMyNzUwMX0.jZoMK-lvI9t9lzeZ5Tbzp6GtJuPn2526-d9Mn_HCxbs"
+                alt="Balão Destacado Menu" class="menu-logo-img">
+        </div>
+
+        <ul class="mobile-nav-links">
+            <li><a href="index.html#">Início</a></li>
+            <li><a href="index.html#personagens">Personagens</a></li>
+            <li><a href="index.html#servicos">Serviços</a></li>
+            <li><a href="index.html#sobre">Sobre Nós</a></li>
+            <li><a href="index.html#destaques">Destaques</a></li>
+            <li><a href="index.html#contato-rapido" class="btn-menu-orcamento">Fale Conosco</a></li>
+        </ul>
+
+        <div class="menu-social-footer">
+            <p class="menu-social-text">Siga nossa alegria!</p>
+            <div class="menu-social-icons">
+                <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer" class="icon-instagram"><i
+                        class="fa-brands fa-instagram"></i></a>
+                <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer" class="icon-facebook"><i
+                        class="fa-brands fa-facebook"></i></a>
+                <a href="https://wa.me/" target="_blank" rel="noopener noreferrer" class="icon-whatsapp"><i
+                        class="fa-brands fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <section class="gallery-section">
+            <div class="gallery-container">
+                <span class="about-tag">Momentos Mágicos</span>
+                <h2 class="about-title">Nossa Galeria de Fotos</h2>
+                <p class="ludicas-subtitle" style="margin-bottom: 20px;">Confira um pouco da alegria e magia que levamos
+                    para as festas!</p>
+
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <div class="gallery-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/acampamento.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9hY2FtcGFtZW50by5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjY3MjY1MiwiZXhwIjoxNzkyMjYzMDUyfQ.BwhbYMfmKubhxcfomxT35pyiG5fd41zPb5nk82rSdUc"
+                                alt="Galeria Comando da Alegria">
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/acessorios.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9hY2Vzc29yaW9zLmpwZWciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgyNjcyNjYxLCJleHAiOjM2ODE5MTY4NjYxfQ.f_ZtvQsIe_8hOqEIkeQqaOnPxeudk_quT9qV6LSjZWc"
+                                alt="Galeria Comando da Alegria">
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/argila.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9hcmdpbGEuanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI2NzI2NzYsImV4cCI6NTI4MzE2ODY3Nn0.KhZlLPFZDsnaEZFrzcJKJDzjSe0thAl1JYvHG4p-2Lw"
+                                alt="Galeria Comando da Alegria">
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/balada.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9iYWxhZGEuanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI2NzI2OTMsImV4cCI6NTI4MzE2ODY5M30.PWktLuPFz_CIWA6ecsiWlJN5k9fpRNQ8j01Ic7SnKYk"
+                                alt="Galeria Comando da Alegria">
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/balanganan.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9iYWxhbmdhbmFuLmpwZWciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgyNjcyNzA3LCJleHAiOjUyODMxNjg3MDd9.VQ_UaZsFSzP5jrkdQdj5n0Aalp7wYt_wE5qbqpn2Bug"
+                                alt="Galeria Comando da Alegria">
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/alongamento.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9hbG9uZ2FtZW50by5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4Mjg3MjU3NSwiZXhwIjozOTk3Mjk2ODU3NX0.PLxUc5-_fPcKweO1c9X_VKZNhEueJ89cQpecE9_h94U"
+                                alt="Galeria Comando da Alegria">
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/brincadeira3.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9icmluY2FkZWlyYTMuanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI2NzI3MzcsImV4cCI6NTI4MzE2ODczN30._Ate_5fmgz0JNSIQQPelONyNF4MLgcg9Er3EQ1OrZ7I"
+                                alt="Galeria Comando da Alegria">
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/brincadeiras.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9icmluY2FkZWlyYXMuanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI2NzI3NDgsImV4cCI6NTI4MzE2ODc0OH0.ywio1Ye4d92FZ7hKse7hkdnBxZDNnOBvwRUVIRpYyrU"
+                                alt="Galeria Comando da Alegria">
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/brincar.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9icmluY2FyLmpwZWciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgyNjcyNzU5LCJleHAiOjUyODMxNjg3NTl9.eoO5JYFlP5-uYXJkkkh6y6mseeCBNU8DDNt1JrxqkTE"
+                                alt="Galeria Comando da Alegria">
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/brincarr.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9icmluY2Fyci5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjY3Mjc3MywiZXhwIjo1MjgzMTY4NzczfQ.swbZAfxvjnDPD_eF6eOdb3dBexZoqHnhex6TOD-qFLM"
+                                alt="Galeria Comando da Alegria">
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/cacatesouso.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9jYWNhdGVzb3Vzby5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjY3Mjc4OCwiZXhwIjo1MjgzMTY4Nzg4fQ.EYJqW43T4tzLT9UQfiIdQC2XxjZRfIkDFD872ol0o4w"
+                                alt="Galeria Comando da Alegria">
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/carnaval.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9jYXJuYXZhbC5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjY3Mjc5OCwiZXhwIjo1MjgzMTY4Nzk4fQ.oCOA5IpYTLrFnCHszXw_zIW3XPzYX6SYdzm0hgzGgfg"
+                                alt="Galeria Comando da Alegria">
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/colonia%20de%20ferias.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9jb2xvbmlhIGRlIGZlcmlhcy5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjY3MjgxNywiZXhwIjo1MjgzMTY4ODE3fQ.g-UGpVITMcLFzg4933xn8U83PIHNPn6I2jINwukiXyg"
+                                alt="Galeria Comando da Alegria">
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/desenhos.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9kZXNlbmhvcy5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjY3MjgyOCwiZXhwIjo1MjgzMTY4ODI4fQ.y9oDXWF9K2lswT7BvRrELz5hQF5oLCkyrs0uhBTGFJg"
+                                alt="Galeria Comando da Alegria">
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/oo.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9vby5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjY3NTU0NCwiZXhwIjo0MjEwOTQ3NTQ0fQ.WP9jeXIeCkAjAAEGcYX5DW8TVpzQ_9o8BpWJzhj_CGg"
+                                alt="Galeria Comando da Alegria">
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/eventoespecialnatal.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9ldmVudG9lc3BlY2lhbG5hdGFsLmpwZWciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgyNjcyODQ3LCJleHAiOjUyODMxNjg4NDd9.0qdzhjTLRvRaF7K7TklCbelY9AVRVa4Qf-GPnzB8NWM"
+                                alt="Galeria Comando da Alegria">
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/fantoche.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9mYW50b2NoZS5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjY3Mjg1NSwiZXhwIjo1MjgzMTY4ODU1fQ.8rVpDwFLFbS540tCkiYPh9il63WQ2f5rqxzf1eZqi1U"
+                                alt="Galeria Comando da Alegria">
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/futbol.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9mdXRib2wuanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI2NzI4NjMsImV4cCI6NTI4MzE2ODg2M30.l0qu8k3nPIPmlqQEvZjirHi4T3dnUmjo3Uricow9zTM"
+                                alt="Galeria Comando da Alegria">
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/futebol.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9mdXRlYm9sLmpwZWciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgyNjcyODc4LCJleHAiOjUyODMxNjg4Nzh9.DYFgGOwaitMD_bh2tGITq0RX-PXRzkeWV-s2_CGfVnI"
+                                alt="Galeria Comando da Alegria">
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/futeboltime.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9mdXRlYm9sdGltZS5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjY3NDE0NSwiZXhwIjo1MjgzMTcwMTQ1fQ.Q3HB6oJ_LlJX0Iq7u2k6TnxvoZrOA36tjdhxG_0KiYs"
+                                alt="Galeria Comando da Alegria">
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/gincana.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9naW5jYW5hLmpwZWciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgyNjcyODk3LCJleHAiOjUyODMxNjg4OTd9.5YUqhJ7v0_Jd1DGOKplf_4phG4ahKq2izG2553g2Uic"
+                                alt="Galeria Comando da Alegria">
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/laboral.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9sYWJvcmFsLmpwZWciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgyNjcyOTA2LCJleHAiOjUyODMxNjg5MDZ9.MB74uz8DIyWkTxSfWWz06WAYmLLvnyuAJIMvc2_kClY"
+                                alt="Galeria Comando da Alegria">
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/laser.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9sYXNlci5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjY3MjkxNiwiZXhwIjo1MjgzMTY4OTE2fQ.S_t1pw_Yqt1SDMcgaHcMZfRax5J3rPBzuUsYXQGe4CY"
+                                alt="Galeria Comando da Alegria">
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/massiinha.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9tYXNzaWluaGEuanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI2NzQyMzUsImV4cCI6NTI4MzE3MDIzNX0.qfdNBy0S4gfkF6omeIMKAQElCNGd_n3P87XIte2sr10"
+                                alt="Galeria Comando da Alegria">
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/noitedopijama.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9ub2l0ZWRvcGlqYW1hLmpwZWciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgyNjcyOTQwLCJleHAiOjUyODMxNjg5NDB9.PHcEOoPswuvV5e94QIohSj8NdStCUQ9TkwZe2ieRNfs"
+                                alt="Galeria Comando da Alegria">
+                        </div>
+                    </div>
+
+                    <div class="gallery-item">
+                        <div class="gallery-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/rodinha.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9yb2RpbmhhLmpwZWciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgyNjc1NDAxLCJleHAiOjUyODMxNzE0MDF9.Nrz53t0TlNn8lKqt5lY8EkOtQMi9XAycPoWxwuLb9Hg"
+                                alt="Galeria Comando da Alegria">
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/dunuttss.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9kdW51dHRzcy5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjY3NTc5NywiZXhwIjo0OTA0NzM5Nzk3fQ.6cLTtm-4wWi2WRthjZgOMhx3q3lqEirlmvQ0uupfi5Q"
+                                alt="Galeria Comando da Alegria">
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/99.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS85OS5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjY3NjAzOSwiZXhwIjo0OTA0NzQwMDM5fQ.MU7mS9A0D6XlTHyvzNotlG4miadPMVvtS-Yc4QX7TbE"
+                                alt="Galeria Comando da Alegria">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="load-more-container" style="margin-top: 50px;">
+                    <a href="index.html" class="btn-ver-mais" style="text-decoration: none;"><i
+                            class="fa-solid fa-arrow-left"></i> Voltar para o Início</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer" id="footer-site">
+        <div class="footer-container">
+
+            <div class="footer-col footer-col-logo">
+                <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/3422ba6e-664b-4a8a-a483-64cb728c37ea.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvMzQyMmJhNmUtNjY0Yi00YThhLWE0ODMtNjRjYjcyOGMzN2VhLnBuZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODIyNjM1MDEsImV4cCI6NDkwNDMyNzUwMX0.jZoMK-lvI9t9lzeZ5Tbzp6GtJuPn2526-d9Mn_HCxbs"
+                    alt="Logo Comando da Alegria" class="footer-logo-img">
+            </div>
+
+            <div class="footer-col">
+                <h4>Início</h4>
+                <ul>
+                    <li><a href="index.html#">Home</a></li>
+                    <li><a href="index.html#personagens">Personagens</a></li>
+                    <li><a href="index.html#servicos">Serviços</a></li>
+                    <li><a href="index.html#destaques">Destaques</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Sobre-nós</h4>
+                <ul>
+                    <li><a href="index.html#sobre">Nossa História</a></li>
+                    <li><a href="index.html#experiencias-ludicas">Experiências Lúdicas</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col footer-col-contact">
+                <div class="footer-social-icons">
+                    <a href="https://wa.me/5500000000000" target="_blank" aria-label="WhatsApp"><i
+                            class="fa-brands fa-whatsapp"></i></a>
+                    <a href="https://facebook.com/" target="_blank" aria-label="Facebook"><i
+                            class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://instagram.com/" target="_blank" aria-label="Instagram"><i
+                            class="fa-brands fa-instagram"></i></a>
+                </div>
+                <a href="https://wa.me/5500000000000" target="_blank" class="btn-footer-contato">Contato</a>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            &copy; 2024 Copyright - Comando da Alegria
+        </div>
+    </footer>
+
+    <a href="https://wa.me/5500000000000" class="whatsapp-float" target="_blank" rel="noopener noreferrer"
+        aria-label="Contato via WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <script>
+        const menuToggle = document.querySelector('.menu-toggle');
+        const menuCloseBtn = document.getElementById('menuCloseBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const body = document.body;
+
+        function openMenu() {
+            mobileMenu.classList.add('open');
+            body.classList.add('menu-active');
+        }
+
+        function closeMenu() {
+            mobileMenu.classList.remove('open');
+            body.classList.remove('menu-active');
+        }
+
+        menuToggle.addEventListener('click', openMenu);
+        menuCloseBtn.addEventListener('click', closeMenu);
+
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,3177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comando da Alegria</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+    <style>
+        /* RESET E CONFIGURAÇÕES GERAIS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #fafafa;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        body.menu-active {
+            overflow: hidden;
+        }
+
+        /* URL DA IMAGEM DE FUNDO DO HERO */
+        :root {
+            --bg-image: url('https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/fundo%20comando.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvZnVuZG8gY29tYW5kby5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgyMjYzNDM2LCJleHAiOjQ5MDQzMjc0MzZ9.aTspCSOV-Us9TaoLBs_cvr-PEcFPD0XwL9dZO6cdWto');
+        }
+
+        /* ------------------------------------ */
+        /* TELA DE CARREGAMENTO (PRELOADER)     */
+        /* ------------------------------------ */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-image: var(--bg-image);
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        #preloader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .loader-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .loader-balloon {
+            width: 250px;
+            height: auto;
+            animation: pulse-balloon 1.5s ease-in-out infinite;
+        }
+
+        .loader-text {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: #ff2a74;
+            text-shadow: 0 2px 4px rgba(255, 255, 255, 0.9);
+            animation: pulse-text 1.5s ease-in-out infinite;
+        }
+
+        /* ------------------------------------ */
+        /* CABEÇALHO (ILHA MEDIANA FIXA)        */
+        /* ------------------------------------ */
+        .floating-island {
+            position: fixed;
+            top: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 92%;
+            max-width: 1200px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 50px;
+            padding: 7px 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            z-index: 1002;
+            transition: opacity 0.3s ease;
+            opacity: 1;
+        }
+
+        body.menu-active .floating-island {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            height: 66px;
+            margin-top: -10px;
+            margin-bottom: -10px;
+            width: auto;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-link:hover .logo-img {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .desktop-nav {
+            display: none;
+        }
+
+        .desktop-nav ul {
+            list-style: none;
+            display: flex;
+            gap: 24px;
+        }
+
+        .desktop-nav a {
+            text-decoration: none;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #444;
+            transition: color 0.2s, transform 0.2s;
+        }
+
+        .desktop-nav ul li:nth-child(1) a:hover {
+            color: #ff2a74;
+        }
+
+        .desktop-nav ul li:nth-child(2) a:hover {
+            color: #00c853;
+        }
+
+        .desktop-nav ul li:nth-child(3) a:hover {
+            color: #ffb703;
+        }
+
+        .desktop-nav ul li:nth-child(4) a:hover {
+            color: #00b4d8;
+        }
+
+        .desktop-nav ul li:nth-child(5) a:hover {
+            color: #ff2a74;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .btn-orcamento {
+            background-color: #ffb703;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            padding: 10px 22px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 10px rgba(255, 183, 3, 0.3);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .btn-orcamento:hover {
+            background-color: #e5a402;
+            transform: translateY(-2px);
+        }
+
+        .menu-toggle {
+            background: none;
+            border: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            cursor: pointer;
+            width: 28px;
+            height: 28px;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 28px;
+            height: 3px;
+            background-color: #ff2a74;
+            border-radius: 2px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .menu-close-btn {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            background: none;
+            border: none;
+            font-size: 2.2rem;
+            color: #ff2a74;
+            cursor: pointer;
+            transition: transform 0.2s;
+            z-index: 1003;
+        }
+
+        .menu-close-btn:hover {
+            transform: scale(1.1) rotate(90deg);
+        }
+
+        /* ------------------------------------ */
+        /* MENU MOBILE OVERLAY                  */
+        /* ------------------------------------ */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100vh;
+            background: #FFF0F5;
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px 20px 30px 20px;
+            transform: translateY(-100%);
+            transition: transform 0.4s cubic-bezier(0.77, 0.2, 0.05, 1);
+        }
+
+        .mobile-menu-overlay.open {
+            transform: translateY(0);
+        }
+
+        .menu-mobile-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .menu-logo-img {
+            height: 140px;
+            width: auto;
+            filter: drop-shadow(0 8px 15px rgba(255, 42, 116, 0.25)) drop-shadow(0 4px 6px rgba(0, 200, 83, 0.15));
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .mobile-nav-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .mobile-nav-links a {
+            text-decoration: none;
+            font-size: 1.6rem;
+            font-weight: 900;
+            transition: transform 0.2s;
+            display: inline-block;
+        }
+
+        .mobile-nav-links a:not(.btn-menu-orcamento):hover {
+            transform: scale(1.1);
+        }
+
+        .mobile-nav-links li:nth-child(1) a {
+            color: #ff2a74;
+        }
+
+        .mobile-nav-links li:nth-child(2) a {
+            color: #00c853;
+        }
+
+        .mobile-nav-links li:nth-child(3) a {
+            color: #ffb703;
+        }
+
+        .mobile-nav-links li:nth-child(4) a {
+            color: #00b4d8;
+        }
+
+        .mobile-nav-links li:nth-child(5) a {
+            color: #ff2a74;
+        }
+
+        .mobile-nav-links .btn-menu-orcamento {
+            background: linear-gradient(135deg, #ffb703, #fa9f00);
+            color: white !important;
+            padding: 12px 40px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(255, 183, 3, 0.3);
+            margin-top: 5px;
+        }
+
+        .menu-social-footer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .menu-social-text {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #666;
+            letter-spacing: 0.5px;
+        }
+
+        .menu-social-icons {
+            display: flex;
+            gap: 24px;
+        }
+
+        .menu-social-icons a {
+            font-size: 1.8rem;
+            transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+        }
+
+        .menu-social-icons a:hover {
+            transform: translateY(-5px) scale(1.15);
+        }
+
+        .icon-instagram {
+            color: #e1306c;
+        }
+
+        .icon-facebook {
+            color: #1877f2;
+        }
+
+        .icon-whatsapp {
+            color: #25d366;
+        }
+
+        /* ------------------------------------ */
+        /* SEÇÃO HERO                           */
+        /* ------------------------------------ */
+        .hero {
+            min-height: 100vh;
+            background-image: var(--bg-image);
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 150px 20px 60px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.12);
+            z-index: 1;
+        }
+
+        .hero-content {
+            width: 100%;
+            max-width: 650px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .balloon-container {
+            width: 85%;
+            max-width: 280px;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .img-balloon {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.2));
+        }
+
+        .hero-card {
+            background: rgba(255, 255, 255, 0.22);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 35px;
+            padding: 32px 24px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
+        }
+
+        .hero-title {
+            color: #ffffff;
+            font-size: 1.6rem;
+            font-weight: 900;
+            line-height: 1.3;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        .hero-text {
+            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            line-height: 1.5;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+            max-width: 480px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: 16px;
+        }
+
+        .btn-hero {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 18px 28px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 1.1rem;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: none;
+        }
+
+        .btn-pink {
+            background: linear-gradient(135deg, #ff2a74, #ff5b94);
+            color: #fff;
+            border-bottom: 4px solid #c91450;
+        }
+
+        .btn-green {
+            background: linear-gradient(135deg, #00c853, #26e073);
+            color: #fff;
+            border-bottom: 4px solid #00963e;
+        }
+
+        .btn-hero:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.22);
+        }
+
+        .btn-hero:active {
+            transform: translateY(-1px);
+            border-bottom-width: 1px;
+        }
+
+        /* ==========================================================================
+           TRANSIÇÕES DE DEGRADÊ ENTRE AS SEÇÕES (CONTINUIDADE SUAVIZADA)
+           ========================================================================== */
+
+        .characters-section {
+            background: linear-gradient(180deg, #fafafa 0%, #fff0f7 100%);
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .services-section {
+            background: linear-gradient(180deg, #fff0f7 0%, #f0faff 100%);
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .ludicas-section {
+            background: linear-gradient(180deg, #f0faff 0%, #fffcf0 100%);
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .about-section {
+            background: linear-gradient(180deg, #fffcf0 0%, #f0fff4 100%);
+            padding: 80px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .destaques-section {
+            background: linear-gradient(180deg, #f0fff4 0%, #fff0f7 100%);
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        /* ------------------------------------ */
+        /* SEÇÃO PERSONAGENS                    */
+        /* ------------------------------------ */
+        .characters-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .filter-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 45px;
+            background: #ffffff;
+            padding: 24px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+            border: 1px dashed rgba(0, 180, 216, 0.2);
+        }
+
+        .category-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .pill-btn {
+            background-color: #f1f5f9;
+            color: #444;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .pill-btn:hover {
+            transform: scale(1.05);
+            background-color: #e2e8f0;
+        }
+
+        .pill-btn.active {
+            background-color: #ff2a74;
+            color: white;
+            box-shadow: 0 4px 12px rgba(255, 42, 116, 0.25);
+        }
+
+        .search-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 320px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 20px 12px 42px;
+            border-radius: 25px;
+            border: 2px solid #e2e8f0;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #333;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: #00b4d8;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #aaa;
+            font-size: 1.1rem;
+        }
+
+        .characters-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .character-card {
+            flex: 0 1 calc(50% - 10px);
+            min-width: 140px;
+        }
+
+        .character-card {
+            background: #ffffff;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-top-width: 5px;
+            border-top-style: solid;
+            border-right: none;
+            border-bottom: none;
+            border-left: none;
+        }
+
+        .character-card:nth-child(4n+1) {
+            border-color: #ff2a74;
+        }
+
+        .character-card:nth-child(4n+2) {
+            border-color: #00c853;
+        }
+
+        .character-card:nth-child(4n+3) {
+            border-color: #00b4d8;
+        }
+
+        .character-card:nth-child(4n+4) {
+            border-color: #ffb703;
+        }
+
+        .character-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .character-img-box {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            overflow: hidden;
+            background-color: #f7f7f7;
+        }
+
+        .character-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            transition: transform 0.5s ease;
+        }
+
+        .character-card:hover .character-img {
+            transform: scale(1.08);
+        }
+
+        .character-info {
+            padding: 16px;
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #222;
+        }
+
+        .no-results {
+            grid-column: 1 / -1;
+            padding: 50px 20px;
+            color: #777;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .load-more-container {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .btn-ver-mais {
+            background: linear-gradient(135deg, #00b4d8, #0096b4);
+            color: white;
+            border: none;
+            padding: 14px 36px;
+            border-radius: 30px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 6px 15px rgba(0, 180, 216, 0.25);
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-ver-mais:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 180, 216, 0.35);
+            color: white;
+        }
+
+        /* ------------------------------------ */
+        /* SEÇÃO: SERVIÇOS                      */
+        /* ------------------------------------ */
+        .services-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 40px;
+            justify-content: center;
+        }
+
+        .service-card {
+            flex: 0 1 100%;
+        }
+
+        .service-card {
+            background: #ffffff;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(255, 140, 0, 0.05);
+            border-top-width: 5px;
+            border-top-style: solid;
+            border-right: none;
+            border-bottom: none;
+            border-left: none;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-card:nth-child(4n+1) {
+            border-color: #ff2a74;
+        }
+
+        .service-card:nth-child(4n+2) {
+            border-color: #00c853;
+        }
+
+        .service-card:nth-child(4n+3) {
+            border-color: #00b4d8;
+        }
+
+        .service-card:nth-child(4n+4) {
+            border-color: #ffb703;
+        }
+
+        .service-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-img-box {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            background-color: #f8fafc;
+        }
+
+        .service-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            transition: transform 0.5s ease;
+        }
+
+        .service-card:hover .service-img {
+            transform: scale(1.08);
+        }
+
+        .service-info {
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            flex-grow: 1;
+            text-align: left;
+        }
+
+        .service-title {
+            font-size: 1.35rem;
+            font-weight: 900;
+        }
+
+        .service-card:nth-child(3n+1) .service-title {
+            color: #ff2a74;
+        }
+
+        .service-card:nth-child(3n+2) .service-title {
+            color: #00c853;
+        }
+
+        .service-card:nth-child(3n+3) .service-title {
+            color: #00b4d8;
+        }
+
+        .service-desc {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.6;
+            font-weight: 600;
+        }
+
+        /* ------------------------------------ */
+        /* BOTÃO VER FOTOS NO CARD E MODAL      */
+        /* ------------------------------------ */
+        .btn-ver-fotos {
+            background: rgba(0, 180, 216, 0.1);
+            border: 1px solid rgba(0, 180, 216, 0.2);
+            color: #0096b4;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: auto; /* Empurra pro fundo do card */
+            align-self: flex-start;
+            transition: all 0.25s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-ver-fotos:hover {
+            background: #00b4d8;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 180, 216, 0.3);
+        }
+
+        /* LIGHTBOX/MODAL DO CARROSSEL DE FOTOS */
+        .foto-modal {
+            display: none;
+            position: fixed;
+            z-index: 10005; /* Acima de tudo */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .foto-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .foto-modal-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 85vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .foto-modal-content img {
+            max-width: 100%;
+            max-height: 85vh;
+            object-fit: contain; /* Não corta a foto vertical de jeito nenhum */
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease;
+        }
+
+        .foto-modal-close {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            color: #fff;
+            font-size: 45px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            z-index: 10006;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .foto-modal-close:hover {
+            color: #ff2a74;
+            transform: scale(1.1);
+        }
+
+        .foto-modal-prev, .foto-modal-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.15);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.4);
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 10006;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(4px);
+        }
+
+        .foto-modal-prev:hover, .foto-modal-next:hover {
+            background: #ff2a74;
+            border-color: #ff2a74;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .foto-modal-prev { left: 30px; }
+        .foto-modal-next { right: 30px; }
+
+        @media (max-width: 768px) {
+            .foto-modal-prev, .foto-modal-next {
+                width: 44px;
+                height: 44px;
+                font-size: 1.2rem;
+            }
+            .foto-modal-prev { left: 15px; }
+            .foto-modal-next { right: 15px; }
+            .foto-modal-close { top: 15px; right: 20px; font-size: 35px; }
+        }
+
+        /* ------------------------------------------- */
+        /* ÁREA EXCLUSIVA: EXPERIÊNCIAS LÚDICAS (FAQ)  */
+        /* ------------------------------------------- */
+        .ludicas-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .ludicas-subtitle {
+            font-size: 1.05rem;
+            color: #666;
+            margin-top: 10px;
+            margin-bottom: 35px;
+            font-weight: 600;
+        }
+
+        .accordion-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            text-align: left;
+        }
+
+        .accordion-item {
+            background: #ffffff;
+            border: 2px solid #f1f5f9;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+            transition: all 0.3s ease;
+        }
+
+        .accordion-header {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 20px 24px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #333;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .accordion-header:hover {
+            background: #fff5f8;
+            color: #ff2a74;
+        }
+
+        .accordion-header i {
+            font-size: 0.9rem;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: #ff2a74;
+        }
+
+        .accordion-item.active {
+            border-color: #ffb703;
+            box-shadow: 0 6px 20px rgba(255, 183, 3, 0.15);
+        }
+
+        .accordion-item.active .accordion-header {
+            background: #fffdf6;
+            color: #e5a402;
+        }
+
+        .accordion-item.active .accordion-header i {
+            transform: rotate(180deg);
+            color: #e5a402;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 0 24px;
+            background: #ffffff;
+        }
+
+        .accordion-content p {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.6;
+            padding-bottom: 20px;
+            font-weight: 600;
+        }
+
+        /* ------------------------------------ */
+        /* SEÇÃO SOBRE NÓS                      */
+        /* ------------------------------------ */
+        .about-container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .about-image-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 420px;
+            z-index: 2;
+        }
+
+        .about-img {
+            width: 100%;
+            height: auto;
+            border-radius: 35px;
+            box-shadow: 0 15px 35px rgba(255, 42, 116, 0.1);
+            border: 8px solid #ffffff;
+            transform: rotate(-3deg);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            object-fit: cover;
+            display: block;
+        }
+
+        .about-image-wrapper:hover .about-img {
+            transform: rotate(0deg) scale(1.03);
+        }
+
+        .about-image-bg {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 100%;
+            height: 100%;
+            background-color: #ff2a74;
+            border-radius: 35px;
+            z-index: -1;
+            transform: rotate(4deg);
+            opacity: 0.15;
+            transition: transform 0.3s ease;
+        }
+
+        .about-content {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            text-align: center;
+        }
+
+        .about-tag {
+            color: #ff2a74;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            display: inline-block;
+        }
+
+        .about-title {
+            font-size: 2.1rem;
+            font-weight: 900;
+            color: #222;
+            line-height: 1.2;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            color: #444;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .about-highlight-box {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin-top: 15px;
+            text-align: left;
+            max-width: 550px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .about-feature {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px dashed rgba(255, 42, 116, 0.2);
+        }
+
+        .about-feature:last-child {
+            border-bottom: none;
+        }
+
+        .about-feature-icon {
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .about-feature-icon.pink {
+            background: rgba(255, 42, 116, 0.1);
+            color: #ff2a74;
+        }
+
+        .about-feature-icon.blue {
+            background: rgba(0, 180, 216, 0.15);
+            color: #00b4d8;
+        }
+
+        .about-feature-text {
+            font-size: 1.05rem;
+            color: #333;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .about-feature-text span {
+            font-weight: 400;
+            color: #555;
+            display: block;
+            font-size: 0.95rem;
+            margin-top: 2px;
+        }
+
+        /* ==========================================================================
+           SEÇÃO: CARROSSEL DE DESTAQUES 
+           ========================================================================== */
+        .destaques-container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .carousel-wrapper {
+            position: relative;
+            max-width: 900px;
+            margin: 40px auto 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .carousel-track {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 20px;
+            padding: 10px;
+            scrollbar-width: none;
+        }
+
+        .carousel-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .carousel-card {
+            flex: 0 0 85%;
+            scroll-snap-align: center;
+            background: #fff;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            border-top-width: 5px;
+            border-top-style: solid;
+            border-right: none;
+            border-bottom: none;
+            border-left: none;
+            text-align: left;
+            transition: transform 0.3s;
+        }
+
+        .carousel-card:nth-child(4n+1) {
+            border-color: #ff2a74;
+        }
+
+        .carousel-card:nth-child(4n+2) {
+            border-color: #00c853;
+        }
+
+        .carousel-card:nth-child(4n+3) {
+            border-color: #00b4d8;
+        }
+
+        .carousel-card:nth-child(4n+4) {
+            border-color: #ffb703;
+        }
+
+        .carousel-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .carousel-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .carousel-content {
+            padding: 25px;
+        }
+
+        .carousel-content h3 {
+            font-size: 1.4rem;
+            color: #ff2a74;
+            margin-bottom: 10px;
+            font-weight: 900;
+        }
+
+        .carousel-content p {
+            color: #555;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+
+        .carousel-btn {
+            background: #ff2a74;
+            color: #fff;
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            position: absolute;
+            z-index: 10;
+            box-shadow: 0 4px 10px rgba(255, 42, 116, 0.3);
+            transition: transform 0.2s, background 0.2s;
+            display: none;
+        }
+
+        .carousel-btn:hover {
+            transform: scale(1.1);
+            background: #e61b5f;
+        }
+
+        .prev-btn {
+            left: -22px;
+        }
+
+        .next-btn {
+            right: -22px;
+        }
+
+        /* ==========================================================================
+           CONTATO REESTRUTURADO E MAIS PROFISSIONAL (ALTA CONVERSÃO)
+           ========================================================================== */
+        .contact-cta-section {
+            background: linear-gradient(180deg, #fff0f7 0%, #e8f7ff 100%);
+            padding: 100px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(50px);
+            z-index: 0;
+            opacity: 0.35;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        .cta-shape-1 {
+            width: 350px;
+            height: 350px;
+            background: #ff2a74;
+            top: -80px;
+            left: -100px;
+        }
+
+        .cta-shape-2 {
+            width: 300px;
+            height: 300px;
+            background: #00b4d8;
+            bottom: -80px;
+            right: -50px;
+            animation-delay: -3s;
+        }
+
+        .contact-cta-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 60px 40px;
+            border-radius: 40px;
+            box-shadow: 0 20px 50px rgba(0, 119, 182, 0.12);
+            position: relative;
+            z-index: 1;
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .cta-urgency-tag {
+            background: #fff0f5;
+            color: #ff2a74;
+            font-weight: 900;
+            font-size: 0.95rem;
+            padding: 8px 24px;
+            border-radius: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            border: 1px dashed #ff2a74;
+            margin-bottom: 5px;
+        }
+
+        .contact-cta-title {
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: #222;
+            line-height: 1.2;
+        }
+
+        .contact-cta-title span {
+            color: #ff2a74;
+        }
+
+        .contact-cta-subtitle {
+            font-size: 1.2rem;
+            color: #555;
+            font-weight: 600;
+            line-height: 1.6;
+            max-width: 650px;
+            margin-bottom: 10px;
+        }
+
+        .cta-benefits {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+
+        .cta-benefits span {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #444;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cta-benefits i {
+            color: #00c853;
+            font-size: 1.2rem;
+        }
+
+        .btn-cta-whatsapp {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            background: linear-gradient(135deg, #25d366 0%, #1ecc5c 100%);
+            color: #ffffff !important;
+            padding: 22px 50px;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: 900;
+            text-decoration: none;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-bottom: 5px solid #169c46;
+            animation: pulse-btn 2s infinite;
+        }
+
+        .btn-cta-whatsapp:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(37, 211, 102, 0.5);
+            color: #ffffff;
+            animation: none;
+        }
+
+        .btn-cta-whatsapp:active {
+            transform: translateY(-1px);
+            border-bottom-width: 2px;
+        }
+
+        @keyframes pulse-btn {
+            0% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6);
+            }
+
+            70% {
+                box-shadow: 0 0 0 20px rgba(37, 211, 102, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+            }
+        }
+
+        /* ==========================================================================
+           RODAPÉ (MAIS ELEGANTE E HARMONIZADO)
+           ========================================================================== */
+        .site-footer {
+            background: linear-gradient(135deg, #0096c7 0%, #023e8a 100%);
+            color: #ffffff;
+            font-family: 'Nunito', sans-serif;
+            position: relative;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 60px 20px 40px;
+            gap: 30px;
+        }
+
+        .footer-col {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .footer-col-logo {
+            flex: 1.5;
+            min-width: 200px;
+        }
+
+        .footer-logo-img {
+            max-height: 70px;
+            width: auto;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+            transition: max-height 0.3s ease;
+        }
+
+        .footer-col h4 {
+            color: #ffffff;
+            font-size: 1.2rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-col ul li a {
+            color: #e0f6ff;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 700;
+            transition: color 0.2s, transform 0.2s;
+            display: inline-block;
+        }
+
+        .footer-col ul li a:hover {
+            color: #ffb703;
+            transform: translateX(4px);
+        }
+
+        .footer-col-contact {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            flex: 1.2;
+        }
+
+        .footer-social-icons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .footer-social-icons a {
+            color: #ffffff;
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.15);
+            width: 44px;
+            height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 1.4rem;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .footer-social-icons a:hover {
+            background: #ffb703;
+            color: #023e8a;
+            transform: translateY(-5px) rotate(8deg);
+            box-shadow: 0 5px 15px rgba(255, 183, 3, 0.4);
+        }
+
+        .btn-footer-contato {
+            background-color: #ffb703;
+            color: #023e8a;
+            padding: 12px 32px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 183, 3, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-footer-contato:hover {
+            background-color: #ffffff;
+            transform: translateY(-3px);
+            color: #00b4d8;
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .footer-bottom {
+            background-color: #03045e;
+            padding: 20px;
+            text-align: center;
+            font-size: 0.95rem;
+            color: #baddff;
+            font-weight: 700;
+        }
+
+        /* ------------------------------------ */
+        /* ANIMAÇÕES                            */
+        /* ------------------------------------ */
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-12px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        @keyframes pulse-balloon {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes pulse-text {
+            0% {
+                opacity: 0.6;
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.02);
+            }
+
+            100% {
+                opacity: 0.6;
+            }
+        }
+
+        /* ==========================================================================
+           BOTÃO WHATSAPP FIXO
+           ========================================================================== */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background-color: #25d366;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 999;
+            transition: transform 0.2s;
+            text-decoration: none;
+            color: #ffffff;
+        }
+
+        .whatsapp-float i {
+            font-size: 34px;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            color: #ffffff;
+        }
+
+        /* ------------------------------------ */
+        /* MEDIA QUERIES                        */
+        /* ------------------------------------ */
+        @media (max-width: 767px) {
+            .footer-container {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 30px 15px;
+                padding: 40px 20px 30px;
+                text-align: left;
+            }
+
+            .footer-col {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .footer-col-logo {
+                grid-column: span 2;
+                align-items: center;
+            }
+
+            .footer-col-contact {
+                grid-column: span 2;
+                align-items: center;
+                text-align: center;
+                margin-top: 10px;
+            }
+
+            .footer-logo-img {
+                max-height: 120px;
+                margin-bottom: 0;
+            }
+
+            .footer-col h4 {
+                margin-bottom: 15px;
+                font-size: 1.1rem;
+            }
+
+            .footer-col ul {
+                align-items: flex-start;
+            }
+
+            .contact-cta-title {
+                font-size: 2.2rem;
+            }
+
+            .btn-cta-whatsapp {
+                padding: 16px 32px;
+                font-size: 1.15rem;
+                width: 100%;
+                text-align: center;
+            }
+
+            .contact-cta-card {
+                padding: 40px 20px;
+                border-radius: 30px;
+            }
+
+            .cta-benefits span {
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .contact-cta-card {
+                padding: 60px 50px;
+            }
+
+            .carousel-card {
+                flex: 0 0 calc(50% - 10px);
+            }
+
+            .carousel-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .floating-island {
+                padding: 10px 40px;
+                top: 24px;
+            }
+
+            .logo-img {
+                height: 76px;
+                margin-top: -10px;
+                margin-bottom: -10px;
+            }
+
+            .menu-logo-img {
+                height: 160px;
+            }
+
+            .desktop-nav {
+                display: block;
+            }
+
+            .menu-toggle {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 2.2rem;
+            }
+
+            .hero-text {
+                font-size: 1.25rem;
+            }
+
+            .hero-card {
+                padding: 45px 40px;
+                border-radius: 45px;
+            }
+
+            .hero-buttons {
+                flex-direction: row;
+                justify-content: center;
+                gap: 20px;
+            }
+
+            .btn-hero {
+                width: auto;
+                min-width: 240px;
+                padding: 18px 32px;
+            }
+
+            .balloon-container {
+                max-width: 340px;
+            }
+
+            .about-container {
+                flex-direction: row;
+                gap: 60px;
+                align-items: center;
+            }
+
+            .about-image-wrapper {
+                flex: 1;
+                max-width: 440px;
+            }
+
+            .about-content {
+                flex: 1.2;
+                text-align: left;
+            }
+
+            .about-title {
+                font-size: 2.5rem;
+            }
+
+            .about-text {
+                margin: 0;
+            }
+
+            .about-highlight-box {
+                margin-left: 0;
+                margin-right: 0;
+                max-width: 100%;
+            }
+
+            .filter-controls {
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 16px 30px;
+            }
+
+            .character-card {
+                flex: 0 1 calc(25% - 18px);
+            }
+
+            .service-card {
+                flex: 0 1 calc(33.333% - 20px);
+            }
+
+            .carousel-card {
+                flex: 0 0 calc(33.333% - 13.33px);
+            }
+
+            .footer-logo-img {
+                max-height: 160px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="preloader">
+        <div class="loader-content">
+            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/3422ba6e-664b-4a8a-a483-64cb728c37ea.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvMzQyMmJhNmUtNjY0Yi00YThhLWE0ODMtNjRjYjcyOGMzN2VhLnBuZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODIyNjg1MzcsImV4cCI6NDkwNDMzMjUzN30.d2tmUMj1jyfOoy5RFaQRlkz0Fu047782tDKLrqqehps"
+                alt="Carregando..." class="loader-balloon">
+            <p class="loader-text">Carregando a diversão...</p>
+        </div>
+    </div>
+
+    <header class="floating-island">
+        <div class="header-container">
+            <a href="#" class="logo-link">
+                <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Design%20sem%20nome%20(14).png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvRGVzaWduIHNlbSBub21lICgxNCkucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjI2NzM5MiwiZXhwIjo0OTA0MzMxMzkyfQ.uWlYl8bEvRWtYICesH-nGWzz-EP0utXr5muWh_RpNf0"
+                    alt="Balão Logo" class="logo-img">
+            </a>
+
+            <nav class="desktop-nav">
+                <ul>
+                    <li><a href="#">Início</a></li>
+                    <li><a href="#personagens">Personagens</a></li>
+                    <li><a href="#servicos">Serviços</a></li>
+                    <li><a href="#sobre">Sobre Nós</a></li>
+                    <li><a href="#destaques">Destaques</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <a href="#contato-rapido" class="btn-orcamento">Fale Conosco</a>
+                <button class="menu-toggle" aria-label="Abrir Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="mobile-menu-overlay" id="mobileMenu">
+        <button class="menu-close-btn" id="menuCloseBtn" aria-label="Fechar Menu">&times;</button>
+
+        <div class="menu-mobile-header">
+            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/3422ba6e-664b-4a8a-a483-64cb728c37ea.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvMzQyMmJhNmUtNjY0Yi00YThhLWE0ODMtNjRjYjcyOGMzN2VhLnBuZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODIyNjM1MDEsImV4cCI6NDkwNDMyNzUwMX0.jZoMK-lvI9t9lzeZ5Tbzp6GtJuPn2526-d9Mn_HCxbs"
+                alt="Balão Destacado Menu" class="menu-logo-img">
+        </div>
+
+        <ul class="mobile-nav-links">
+            <li><a href="#">Início</a></li>
+            <li><a href="#personagens">Personagens</a></li>
+            <li><a href="#servicos">Serviços</a></li>
+            <li><a href="#sobre">Sobre Nós</a></li>
+            <li><a href="#destaques">Destaques</a></li>
+            <li><a href="#contato-rapido" class="btn-menu-orcamento">Fale Conosco</a></li>
+        </ul>
+
+        <div class="menu-social-footer">
+            <p class="menu-social-text">Siga nossa alegria!</p>
+            <div class="menu-social-icons">
+                <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer" class="icon-instagram"><i
+                        class="fa-brands fa-instagram"></i></a>
+                <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer" class="icon-facebook"><i
+                        class="fa-brands fa-facebook"></i></a>
+                <a href="https://wa.me/" target="_blank" rel="noopener noreferrer" class="icon-whatsapp"><i
+                        class="fa-brands fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <div class="balloon-container">
+                    <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/3422ba6e-664b-4a8a-a483-64cb728c37ea.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvMzQyMmJhNmUtNjY0Yi00YThhLWE0ODMtNjRjYjcyOGMzN2VhLnBuZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODIyNjM1MDEsImV4cCI6NDkwNDMyNzUwMX0.jZoMK-lvI9t9lzeZ5Tbzp6GtJuPn2526-d9Mn_HCxbs"
+                        alt="Balão Comando da Alegria" class="img-balloon">
+                </div>
+                <div class="hero-card">
+                    <h1 class="hero-title">Sua Festa com Pura Magia!</h1>
+                    <p class="hero-text">Personagens vivos e recreação cheia de energia para transformar sua comemoração
+                        em um dia inesquecível.</p>
+                    <div class="hero-buttons">
+                        <a href="#contato-rapido" class="btn-hero btn-pink">RESERVAR DATA</a>
+                        <a href="#personagens" class="btn-hero btn-green">VER PERSONAGENS</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="personagens" class="characters-section">
+            <div class="characters-container">
+                <span class="about-tag">Nossos Personagens</span>
+                <h2 class="about-title" style="margin-bottom: 30px;">Escolha quem você quer que vá na sua festa!</h2>
+
+                <div class="filter-controls">
+                    <div class="category-pills">
+                        <button class="pill-btn active" data-cat="todos">Todos</button>
+                        <button class="pill-btn" data-cat="princesas">Princesas</button>
+                        <button class="pill-btn" data-cat="herois">Heróis</button>
+                        <button class="pill-btn" data-cat="patrulha-canina">Patrulha Canina</button>
+                        <button class="pill-btn" data-cat="disney">Disney</button>
+                        <button class="pill-btn" data-cat="pj-masks">PJ Masks</button>
+                        <button class="pill-btn" data-cat="kpop">K-POP</button>
+                        <button class="pill-btn" data-cat="natal">Natal</button>
+                        <button class="pill-btn" data-cat="pascoa">Páscoa</button>
+                        <button class="pill-btn" data-cat="outros">Outros</button>
+                    </div>
+                    <div class="search-wrapper">
+                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                        <input type="text" class="search-input" placeholder="Buscar personagem...">
+                    </div>
+                </div>
+
+                <div class="characters-grid">
+
+                    <div class="character-card" data-category="princesas">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/RapunzelBoa.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvUmFwdW56ZWxCb2EuanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODM2NDk4MjIsImV4cCI6MzY4MjAxNDU4MjJ9.8k495a87NDmqMKRkgBvcgHYttLmD1pXafxKLPCj4Nqc"
+                                alt="Rapunzel" class="character-img">
+                        </div>
+                        <div class="character-info">Rapunzel</div>
+                    </div>
+
+                    <div class="character-card" data-category="princesas">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Elsa%20e%20Anna.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9FbHNhIGUgQW5uYS5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjQwMzg0MywiZXhwIjo0OTA0NDY3ODQzfQ.ax-dT7w4HAx0JMKY-LTDOtFQ0CLet5kDtoIZ0tCWk_0"
+                                alt="Elsa e Anna" class="character-img">
+                        </div>
+                        <div class="character-info">Elsa e Anna</div>
+                    </div>
+
+                    <div class="character-card" data-category="princesas">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/anna.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9hbm5hLmpwZWciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgyNDAzNjg1LCJleHAiOjQ5MDQ0Njc2ODV9.WEaW3jwU0ljx6Rw_WIKRnZ0CEBRACdI9dpp8nqliRA4"
+                                alt="Anna" class="character-img">
+                        </div>
+                        <div class="character-info">Anna</div>
+                    </div>
+
+                    <div class="character-card" data-category="princesas">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/branca%20de%20neve.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9icmFuY2EgZGUgbmV2ZS5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjQwMzc4OSwiZXhwIjo0OTA0NDY3Nzg5fQ.wRSNjas7QubreiiDswjVXRL0RShytuAdUmWEPt1ZXQ4"
+                                alt="Branca de Neve" class="character-img">
+                        </div>
+                        <div class="character-info">Branca de Neve</div>
+                    </div>
+
+                    <div class="character-card" data-category="princesas">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/moana.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9tb2FuYS5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjQwNDExMywiZXhwIjo4NzgzMzk2MTEzfQ.njCPOuZa-M5Kdzd4C6lqydxWVAfPFDOwHLf2WgaiedI"
+                                alt="Moana" class="character-img">
+                        </div>
+                        <div class="character-info">Moana</div>
+                    </div>
+
+                    <div class="character-card" data-category="herois">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Batman.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9CYXRtYW4uanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI0MDM3NzIsImV4cCI6NDkwNDQ2Nzc3Mn0.MQirU10aqZ520bdZYJjSdFS-x1oPYbc2uTYu7Tsl1Ts"
+                                alt="Batman" class="character-img">
+                        </div>
+                        <div class="character-info">Batman</div>
+                    </div>
+
+                    <div class="character-card" data-category="herois">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/PowerRanger.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9Qb3dlclJhbmdlci5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjQwNDMxNCwiZXhwIjo1MjgyOTAwMzE0fQ.vI5j5TOxN2tNYezn4Bcj5ezDrG8lPtZtK_XHSXFHQb0"
+                                alt="Power Rangers" class="character-img">
+                        </div>
+                        <div class="character-info">Power Rangers</div>
+                    </div>
+
+                    <div class="character-card" data-category="herois">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/deadpool.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9kZWFkcG9vbC5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjQwMzgyMywiZXhwIjo0OTA0NDY3ODIzfQ.d5VgpCryf4g_fcimsCHdrwMQekTHwYr2cNutz_MfCiI"
+                                alt="Deadpool" class="character-img">
+                        </div>
+                        <div class="character-info">Deadpool</div>
+                    </div>
+
+                    <div class="character-card" data-category="herois">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/hulk.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9odWxrLmpwZWciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgyNDQwODAyLCJleHAiOjQ5MDQ1MDQ4MDJ9.AMBEoQKRXuYVqXZLurHXvtVrsr3MK4KKpipw-p4HrWY"
+                                alt="Hulk" class="character-img">
+                        </div>
+                        <div class="character-info">Hulk</div>
+                    </div>
+
+                    <div class="character-card" data-category="herois">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/homem%20aranha%20premium.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9ob21lbSBhcmFuaGEgcHJlbWl1bS5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjQwMzk1MCwiZXhwIjo4NzgzMzk1OTUwfQ.WXleW62MLJLxjm0R40ob1D0hwovqHSProbmGu6DtlpY"
+                                alt="Homem Aranha Premium" class="character-img">
+                        </div>
+                        <div class="character-info">Homem Aranha Premium</div>
+                    </div>
+
+                    <div class="character-card" data-category="herois">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/homem%20aranha%20classic.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9ob21lbSBhcmFuaGEgY2xhc3NpYy5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjQwMzkwMywiZXhwIjo4NzgzMzk1OTAzfQ.VrGlfSpJs82Qb2M_cjdG36VZKcqKkcW_utFDSifx1tM"
+                                alt="Homem Aranha Classic" class="character-img">
+                        </div>
+                        <div class="character-info">Homem Aranha Classic</div>
+                    </div>
+
+                    <div class="character-card" data-category="herois">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/homem%20de%20ferro.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9ob21lbSBkZSBmZXJyby5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjQwMzk3MiwiZXhwIjo1MjgyODk5OTcyfQ.mGwRsHjntreCC7_g-Y9sUVE3CsQK4sNteWx3g0zAJKg"
+                                alt="Homem de Ferro" class="character-img">
+                        </div>
+                        <div class="character-info">Homem de Ferro</div>
+                    </div>
+
+                    <div class="character-card" data-category="herois">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Lady%20BUg%20e%20Catnoir.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9MYWR5IEJVZyBlIENhdG5vaXIuanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI0MDM5OTMsImV4cCI6ODc4MzM5NTk5M30.VgX3WHDbIRlhjE6nj-S3cQCOIgfNPwqlD51muoqeT_M"
+                                alt="Lady Bug e Catnoir" class="character-img">
+                        </div>
+                        <div class="character-info">Lady Bug e Catnoir</div>
+                    </div>
+
+                    <div class="character-card" data-category="patrulha-canina">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/patrulha%20skye.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9wYXRydWxoYSBza3llLmpwZWciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgyNDA0MjIyLCJleHAiOjUyODI5MDAyMjJ9.EgeCbn96Iz-mvpafvmmSC9Gv7d9t3Nw5TbADABl-Ms8"
+                                alt="Skye" class="character-img">
+                        </div>
+                        <div class="character-info">Skye</div>
+                    </div>
+
+                    <div class="character-card" data-category="patrulha-canina">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/patrulha%20chse.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9wYXRydWxoYSBjaHNlLmpwZWciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgyNDA0MTkyLCJleHAiOjg3ODMzOTYxOTJ9.Dpsh8tX0yvxLGbA-WinU4wgq2Eoe0QA8hKKD2sN4bEM"
+                                alt="Chase" class="character-img">
+                        </div>
+                        <div class="character-info">Chase</div>
+                    </div>
+
+                    <div class="character-card" data-category="patrulha-canina">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/patrulha%20marchal.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9wYXRydWxoYSBtYXJjaGFsLmpwZWciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgyNDA0MjAzLCJleHAiOjQ5MDQ0NjgyMDN9.2t7M5lCV35xWBoOOZsvv9e7GADzJ10HiGCQLDVQ2xbM"
+                                alt="Marshal" class="character-img">
+                        </div>
+                        <div class="character-info">Marshal</div>
+                    </div>
+
+                    <div class="character-card" data-category="patrulha-canina">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/patrulha%20rublle.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9wYXRydWxoYSBydWJsbGUuanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI0MDQyMTMsImV4cCI6NTI4MjkwMDIxM30.DK9iJ0PLQFnBRkK8seDwoneAWEQi6CGHBRswUyHf2mw"
+                                alt="Rubble" class="character-img">
+                        </div>
+                        <div class="character-info">Rubble</div>
+                    </div>
+
+                    <div class="character-card" data-category="disney">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/mickey%20e%20minnie%20classic.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9taWNrZXkgZSBtaW5uaWUgY2xhc3NpYy5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjQwNDA1MSwiZXhwIjo1MjgyOTAwMDUxfQ.8rji1XRrOUiaJ-8P0s1cCTLcp4PLpsHnVSkPwE967IM"
+                                alt="Mickey e Minnie Classic" class="character-img">
+                        </div>
+                        <div class="character-info">Mickey e Minnie Classic</div>
+                    </div>
+
+                    <div class="character-card" data-category="disney">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/minnie%20%20e%20mickey%20premuim.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9taW5uaWUgIGUgbWlja2V5IHByZW11aW0uanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI0MDQxMDMsImV4cCI6NTI4MjkwMDEwM30.j5y7pu65TinMcNy_pGh6riRrk52U91djmeYhfkl_-Rs"
+                                alt="Mickey e Minnie Premium" class="character-img">
+                        </div>
+                        <div class="character-info">Mickey e Minnie Premium</div>
+                    </div>
+
+                    <div class="character-card" data-category="disney">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/mickey%20safari%20premuim.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9taWNrZXkgc2FmYXJpIHByZW11aW0uanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI0MDQwNjcsImV4cCI6NDkwNDQ2ODA2N30.CiUAUcylscYWfcAbv2fuHIEegjJhjv54XIFh_o79C7Q"
+                                alt="Mickey Safari" class="character-img">
+                        </div>
+                        <div class="character-info">Mickey Safari</div>
+                    </div>
+
+                    <div class="character-card" data-category="disney">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Poh.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9Qb2guanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI0MDQyOTksImV4cCI6NTI4MjkwMDI5OX0.rINyjWdDT7lKk0h-YZOhgE6UPl2h4GJ1mv9AL__AdDg"
+                                alt="Pooh" class="character-img">
+                        </div>
+                        <div class="character-info">Pooh</div>
+                    </div>
+
+                    <div class="character-card" data-category="disney">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Stitch.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9TdGl0Y2guanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI0MDQzOTAsImV4cCI6MTc5MTk5NDc5MH0.ZFmVXkSGGboNsHOM5bEA5mhU_DW7UccKC1qiL6ernVE"
+                                alt="Stitch" class="character-img">
+                        </div>
+                        <div class="character-info">Stitch</div>
+                    </div>
+
+                    <div class="character-card" data-category="disney">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Tigrao.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9UaWdyYW8uanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI0MDQ0MDEsImV4cCI6NTI4MjkwMDQwMX0.fn8xI-I-Mjv3HQ5odOpZOJWszTzvAmem6v4tXgf9cj8"
+                                alt="Tigrão" class="character-img">
+                        </div>
+                        <div class="character-info">Tigrão</div>
+                    </div>
+
+                    <div class="character-card" data-category="pj-masks">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/pj%20masks%20corujita.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9waiBtYXNrcyBjb3J1aml0YS5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjQwNDI3MywiZXhwIjo1MjgyOTAwMjczfQ.nqLtKZJalIZkt7Dr3GXzE4AYfxyrS0VM6AT9TB7DHR8"
+                                alt="Corujita" class="character-img">
+                        </div>
+                        <div class="character-info">Corujita (PJ Masks)</div>
+                    </div>
+
+                    <div class="character-card" data-category="pj-masks">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Pj%20masks%20Menino%20Gato.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9QaiBtYXNrcyBNZW5pbm8gR2F0by5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjQwNDI4NCwiZXhwIjo1MjgyOTAwMjg0fQ.Kd-sVVnlfEIGk_DEUCmvUdTBy8ZjupUTMFa31jGbmWE"
+                                alt="Menino Gato" class="character-img">
+                        </div>
+                        <div class="character-info">Menino Gato (PJ Masks)</div>
+                    </div>
+
+                    <div class="character-card" data-category="natal">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Ajudantes%20Natal.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9BanVkYW50ZXMgTmF0YWwuanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI0MDM2NjEsImV4cCI6NDkwNDQ2NzY2MX0.KqJVNqwMrCOabDOo1gQ4ybmyEauZk2Ys9uKqcQzgPbQ"
+                                alt="Ajudantes de Natal" class="character-img">
+                        </div>
+                        <div class="character-info">Ajudantes de Natal</div>
+                    </div>
+
+                    <div class="character-card" data-category="natal">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Cortejos%20Natalino.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9Db3J0ZWpvcyBOYXRhbGluby5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjQwMzgwOCwiZXhwIjo0OTA0NDY3ODA4fQ.SqdNbeEPVVksQTRWsbNqV2JSuqb-ha-ODyJ6KsFRIts"
+                                alt="Cortejos Natalinos" class="character-img">
+                        </div>
+                        <div class="character-info">Cortejos Natalinos</div>
+                    </div>
+
+                    <div class="character-card" data-category="natal">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Noel.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9Ob2VsLmpwZWciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgyODY5NTUzLCJleHAiOjUyODMzNjU1NTN9.MlesnFQYIsOzgGmTASO6vevaMA-gvnHc7BUXiPVd6qw"
+                                alt="Papai Noel" class="character-img">
+                        </div>
+                        <div class="character-info">Papai Noel</div>
+                    </div>
+
+                    <div class="character-card" data-category="pascoa">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/PAscoa%20coelho%201.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9QQXNjb2EgY29lbGhvIDEuanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI0MDQxNDgsImV4cCI6ODc4MzM5NjE0OH0.yg7FCOoJ5AiQEGgf764COj3UaRsMh2H0LcXnV82CgKQ"
+                                alt="Coelho da Páscoa 1" class="character-img">
+                        </div>
+                        <div class="character-info">Coelho da Páscoa</div>
+                    </div>
+
+                    <div class="character-card" data-category="pascoa">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Pascoa%20coelho%202.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9QYXNjb2EgY29lbGhvIDIuanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI0MDQxNzcsImV4cCI6NTI4MjkwMDE3N30.6tvZxetuGJlETX1R2fO1RMjJ3Da7WTvc_52exsxak70"
+                                alt="Coelho da Páscoa 2" class="character-img">
+                        </div>
+                        <div class="character-info">Coelho da Páscoa</div>
+                    </div>
+
+                    <div class="character-card" data-category="outros">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Astronauta.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9Bc3Ryb25hdXRhLmpwZWciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgyNDAzNzE4LCJleHAiOjQ5MDQ0Njc3MTh9.MVrXbAVC2Ualk1lJX1_1_7D85USvxqhSBsEG-OtgfCA"
+                                alt="Astronauta" class="character-img">
+                        </div>
+                        <div class="character-info">Astronauta</div>
+                    </div>
+
+                    <div class="character-card" data-category="outros">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/babyshark.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9iYWJ5c2hhcmsuanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI0MDM3MzMsImV4cCI6NDkwNDQ2NzczM30.gDV7KTBhYho5xvI0bl9i93r_68m0akdSrsHmy6n9QBg"
+                                alt="Baby Shark" class="character-img">
+                        </div>
+                        <div class="character-info">Baby Shark</div>
+                    </div>
+
+                    <div class="character-card" data-category="outros">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Bailarina.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9CYWlsYXJpbmEuanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI0MDM3NDksImV4cCI6NDkwNDQ2Nzc0OX0.oGQC5y3ZIWqfWCL7AUIH2XA-0hp0KrjQXVXHa8aHmwA"
+                                alt="Bailarina" class="character-img">
+                        </div>
+                        <div class="character-info">Bailarina</div>
+                    </div>
+
+                    <div class="character-card" data-category="outros">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Gabby.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9HYWJieS5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjQwMzg1NiwiZXhwIjo0OTA0NDY3ODU2fQ.UNk_ZBmJRVScVJl8kEGFf9-UEnHyGQ7EeO57uwyjylg"
+                                alt="Gabby" class="character-img">
+                        </div>
+                        <div class="character-info">Gabby</div>
+                    </div>
+
+                    <div class="character-card" data-category="outros">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Galinha%20Pintadinha.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9HYWxpbmhhIFBpbnRhZGluaGEuanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI0MDM4NjksImV4cCI6NDkwNDQ2Nzg2OX0.8Uv2eIgxsiCAHtsHmb3Dwpj_GxsAo3kUyEBLHQRakyI"
+                                alt="Galinha Pintadinha" class="character-img">
+                        </div>
+                        <div class="character-info">Galinha Pintadinha</div>
+                    </div>
+
+                    <div class="character-card" data-category="outros">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/hermione.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9oZXJtaW9uZS5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjQwMzg5MCwiZXhwIjo1MjgyODk5ODkwfQ.o6J9f4Naetn2g6nblijnSP_OGGct9kESaOPCceUcMeY"
+                                alt="Hermione" class="character-img">
+                        </div>
+                        <div class="character-info">Hermione</div>
+                    </div>
+
+                    <div class="character-card" data-category="outros">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Leao.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9MZWFvLmpwZWciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgyNDA0MDA2LCJleHAiOjg3ODMzOTYwMDZ9.lIRgxPaRaYgjWHt8wHEflQ4UfEpjMPoA70zOfFE8pcw"
+                                alt="Leão" class="character-img">
+                        </div>
+                        <div class="character-info">Leão</div>
+                    </div>
+
+                    <div class="character-card" data-category="outros">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Mario.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9NYXJpby5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjQwNDAyNiwiZXhwIjo0OTA0NDY4MDI2fQ.EXWZY_eyay67fVeUv_j-edLyokh-lm_MsLjxM2KjRL8"
+                                alt="Mario" class="character-img">
+                        </div>
+                        <div class="character-info">Mario</div>
+                    </div>
+
+                    <div class="character-card" data-category="outros">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Masha%20e%20Urso.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9NYXNoYSBlIFVyc28uanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI0MDg1MDksImV4cCI6NTI4MjkwNDUwOX0.g0Y4CqbakZlVHQthWcT3sSvY2vG-Ac2DrA2O7RMWL34"
+                                alt="Masha e o Urso" class="character-img">
+                        </div>
+                        <div class="character-info">Masha e o Urso</div>
+                    </div>
+
+                    <div class="character-card" data-category="outros">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Minion.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9NaW5pb24uanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI0MDQwOTIsImV4cCI6ODc4MzM5NjA5Mn0.H2lrfKwdJoBcOEaJc42oziNnVdEjK7BCN-0CR3TOKYg"
+                                alt="Minion" class="character-img">
+                        </div>
+                        <div class="character-info">Minion</div>
+                    </div>
+
+                    <div class="character-card" data-category="outros">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/peppa.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9wZXBwYS5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjQwNDIzMSwiZXhwIjo1MjgyOTAwMjMxfQ.0pdmaL1LVGnYKvVZMzQQ4I7KWWgPRJV_oju85EGrRkI"
+                                alt="Peppa Pig" class="character-img">
+                        </div>
+                        <div class="character-info">Peppa Pig</div>
+                    </div>
+
+                    <div class="character-card" data-category="outros">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Picapau.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9QaWNhcGF1LmpwZWciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgyNDA0MjU4LCJleHAiOjUyODI5MDAyNTh9.xAU5R8CxlvHMbj0xvd1-ZGeVbw5PI8L7mjU0ZznAwAg"
+                                alt="Pica-Pau" class="character-img">
+                        </div>
+                        <div class="character-info">Pica-Pau</div>
+                    </div>
+
+                    <div class="character-card" data-category="kpop">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Rumi.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9SdW1pLmpwZWciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgyNDA0MzM1LCJleHAiOjUyODI5MDAzMzV9.e863wQ3mdu9HbTzhViyhd0k9C2u5CPAm6YwyL6FJM4s"
+                                alt="Rumi" class="character-img">
+                        </div>
+                        <div class="character-info">Rumi</div>
+                    </div>
+
+             
+
+                    <div class="character-card" data-category="outros">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Soluco%20e%20astrid.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9Tb2x1Y28gZSBhc3RyaWQuanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI0MTMxNzcsImV4cCI6NDkwNDQ3NzE3N30.GMBloSvt1m3ytAuUArbc4s-xZKRpMwkIqqWqrGqFvN8"
+                                alt="Soluço e Astrid" class="character-img">
+                        </div>
+                        <div class="character-info">Soluço e Astrid</div>
+                    </div>
+
+                           <div class="character-card" data-category="outros">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Scooby%20do.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9TY29vYnkgZG8uanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI0MDQzNDgsImV4cCI6NTI4MjkwMDM0OH0.RRu5ASr6dXn6TcA8dFBAjOW3AF_51K4SF7aWOVsAhuk"
+                                alt="Scooby Doo" class="character-img">
+                        </div>
+                        <div class="character-info">Scooby Doo</div>
+                    </div>
+
+                     <div class="character-card" data-category="outros">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Captura%20de%20tela%202026-06-30%20222947.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvQ2FwdHVyYSBkZSB0ZWxhIDIwMjYtMDYtMzAgMjIyOTQ3LnBuZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI4Njk0MjUsImV4cCI6NTI4MzM2NTQyNX0.UEDb7ZTR-guhBm7b2I4i9nI5cw4UF5ZCaq2OSScY09E"
+                                alt="Divertidamente" class="character-img">
+                        </div>
+                        <div class="character-info">Divertidamente</div>
+                    </div>
+
+                    <div class="character-card" data-category="outros">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Sonic.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9Tb25pYy5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjQwNDM3MiwiZXhwIjo1MjgyOTAwMzcyfQ.p62aVhxqmOUdJxUEYd5syyulU02000Z1C586ksEwNIc"
+                                alt="Sonic" class="character-img">
+                        </div>
+                        <div class="character-info">Sonic</div>
+                    </div>
+                    <div class="character-card" data-category="outros">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/pikachu.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvcGlrYWNodS5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4Mjg2OTE2MywiZXhwIjo1MjgzMzY1MTYzfQ.8DNxQXt_RQWeQKpYoD_v0V8cNttVOMqXpPchjrF97e8"
+                                alt="Pikachu" class="character-img">
+                        </div>
+                        <div class="character-info">Pikachu</div>
+                    </div>
+                </div>
+
+                <div class="load-more-container">
+                    <button id="btnVerMais" class="btn-ver-mais">Ver Mais Personagens</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="servicos" class="services-section">
+            <div class="services-container">
+                <span class="about-tag">O que oferecemos</span>
+                <h2 class="about-title">Nossos Serviços Mágicos</h2>
+
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/recrea.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvcmVjcmVhLmpwZWciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgyODczMjEyLCJleHAiOjUyODMzNjkyMTJ9.vtw2Glj3V9rr4uze9MwKD6SwRL5Ho_gbJcZnKmW0FZM"
+                                alt="Recreação" class="service-img">
+                        </div>
+                        <div class="service-info">
+                            <h3 class="service-title">Recreação</h3>
+                            <p class="service-desc">Brincadeiras dinâmicas, gincanas inteligentes e desafios adaptados
+                                por faixa etária que integram, gastam energia e promovem sorrisos.</p>
+                            <button class="btn-ver-fotos" data-servico="recreacao"><i class="fa-solid fa-camera-retro"></i> Ver fotos</button>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/Captura%20de%20tela%202026-07-01%20001528.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9DYXB0dXJhIGRlIHRlbGEgMjAyNi0wNy0wMSAwMDE1MjgucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4Mjg3NTc1MywiZXhwIjo1MjgzMzcxNzUzfQ.JsTIBai3GrnfeKYinp7S0gTCQrnPWe7acn6Jeve8mYc"
+                                alt="Animação de parabéns" class="service-img">
+                        </div>
+                        <div class="service-info">
+                            <h3 class="service-title">Animação de Parabéns</h3>
+                            <p class="service-desc">Uma entrada triunfal, cheia de palmas, coreografias e energia para
+                                coroar o momento do bolo de um jeito inesquecível!</p>
+                            <button class="btn-ver-fotos" data-servico="animacao"><i class="fa-solid fa-camera-retro"></i> Ver fotos</button>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/pintcapa.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvcGludGNhcGEuanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI4NzM2ODEsImV4cCI6MzY4MTkzNjk2ODF9.pKlkKwUf5VE5r3-Zgs1UwqJTH149CLL4hMg6x5PcxtE"
+                                alt="Pintura facial" class="service-img">
+                        </div>
+                        <div class="service-info">
+                            <h3 class="service-title">Pintura Facial</h3>
+                            <p class="service-desc">Transformamos os pequenos em super-heróis, princesas e bichinhos com
+                                tintas profissionais regulamentadas e hipoalergênicas.</p>
+                            <button class="btn-ver-fotos" data-servico="pintura"><i class="fa-solid fa-camera-retro"></i> Ver fotos</button>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/esculturabalao1.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvZXNjdWx0dXJhYmFsYW8xLmpwZWciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgyODcyMTk5LCJleHAiOjg3ODM4NjQxOTl9.MToUyb5RWXgpHZZrysGGi_1zTjolLIiV9ZSK0m7PHP0"
+                                alt="Esculturas de balão" class="service-img">
+                        </div>
+                        <div class="service-info">
+                            <h3 class="service-title">Esculturas de Balão</h3>
+                            <p class="service-desc">Espadas, cachorrinhos, coroas e corações ganham forma de maneira
+                                rápida e mágica para encantar e presentear todos os convidados.</p>
+                            <button class="btn-ver-fotos" data-servico="baloes"><i class="fa-solid fa-camera-retro"></i> Ver fotos</button>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/pernadepau.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvcGVybmFkZXBhdS5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4Mjg2OTcxOCwiZXhwIjo1MjgzMzY1NzE4fQ.c1Lx91yp6If1Kml-CzPAM1RERwQ3ohEwj9s-AjjEvUM"
+                                alt="Pernas de pau" class="service-img">
+                        </div>
+                        <div class="service-info">
+                            <h3 class="service-title">Pernas de Pau</h3>
+                            <p class="service-desc">Performance artística circense de grande impacto visual, excelente
+                                para interagir e tirar fotos fantásticas lá no alto.</p>
+                            <button class="btn-ver-fotos" data-servico="perna-de-pau"><i class="fa-solid fa-camera-retro"></i> Ver fotos</button>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/oo.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9vby5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4Mjg3Mzg4MSwiZXhwIjo1MjgzMzY5ODgxfQ.BDLJYUWEVU5q-nC4wZZJAicriI5g9UGxeD9EOfKGT1o"
+                                alt="Espaço kids" class="service-img">
+                        </div>
+                        <div class="service-info">
+                            <h3 class="service-title">Espaço Kids</h3>
+                            <p class="service-desc">A estrutura perfeita e segura para <strong>casamentos e
+                                    formaturas</strong>. Um cantinho seguro montado com monitores dedicados.</p>
+                            <button class="btn-ver-fotos" data-servico="espaco-kids"><i class="fa-solid fa-camera-retro"></i> Ver fotos</button>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Cortejos_Natalino.jpeg_202606251540.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9Db3J0ZWpvc19OYXRhbGluby5qcGVnXzIwMjYwNjI1MTU0MC5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjQxMjg4MywiZXhwIjo1MjgyOTA4ODgzfQ.-jpgoS2rUWVqPPb87jBwdP8d3BGc-LQbhvOMha9lXaE"
+                                alt="Cortejos natalinos" class="service-img">
+                        </div>
+                        <div class="service-info">
+                            <h3 class="service-title">Cortejos Natalinos</h3>
+                            <p class="service-desc">Desfiles cheios de emoção e espírito festivo com personagens
+                                natalinos caracterizados impecavelmente, espalhando magia.</p>
+                            <button class="btn-ver-fotos" data-servico="cortejos-natalinos"><i class="fa-solid fa-camera-retro"></i> Ver fotos</button>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Captura%20de%20tela%202026-07-09%20232122.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvQ2FwdHVyYSBkZSB0ZWxhIDIwMjYtMDctMDkgMjMyMTIyLnBuZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODM2NTAxMjYsImV4cCI6MzcxMzU1MDYxMjZ9.rM_wGmgYZlQc4cYn2-Rx61Lq49c_sHD24aOhFq5SVio"
+                                alt="Encontro encantado" class="service-img">
+                        </div>
+                        <div class="service-info">
+                            <h3 class="service-title">Encontro Encantado</h3>
+                            <p class="service-desc">Sessões exclusivas de imersão de abraços, contação de histórias e
+                                momentos de muita proximidade com os personagens vivos.</p>
+                            <button class="btn-ver-fotos" data-servico="encontro-encantado"><i class="fa-solid fa-camera-retro"></i> Ver fotos</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="load-more-container">
+                    <button id="btnVerMaisServicos" class="btn-ver-mais">Ver Mais Serviços</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="experiencias-ludicas" class="ludicas-section">
+            <div class="ludicas-container">
+                <span class="about-tag">Oficinas Interativas</span>
+                <h2 class="about-title">Nossos Experiências Lúdicas</h2>
+                <p class="ludicas-subtitle">Toque nas caixinhas abaixo para descobrir os detalhes de cada oficina
+                    mágica:</p>
+
+                <div class="accordion-container">
+                    <div class="accordion-item">
+                        <button class="accordion-header">Massinha de Modelar Nuvem <i
+                                class="fa-solid fa-chevron-down"></i></button>
+                        <div class="accordion-content">
+                            <p>As crianças criam a sua própria massinha super macia, perfumada e colorida para modelar
+                                na festa e levar de lembrança para casa!</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header">Jardinagem <i class="fa-solid fa-chevron-down"></i></button>
+                        <div class="accordion-content">
+                            <p>O plantio lúdico de sementes ou mudas em mini vasinhos decorados e personalizados pelos
+                                próprios pequenos.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header">Noite do Pijama <i
+                                class="fa-solid fa-chevron-down"></i></button>
+                        <div class="accordion-content">
+                            <p>Montagem de cabanas lúdicas aconchegantes, contação de histórias com lanternas e
+                                brincadeiras especiais até a hora de dormir.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header">Pintura em Gesso <i
+                                class="fa-solid fa-chevron-down"></i></button>
+                        <div class="accordion-content">
+                            <p>Lindas pecinhas de personagens em gesso que ganham vida através das tintas e da
+                                imaginação infinita das crianças.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header">Decoração de Mini Donuts <i
+                                class="fa-solid fa-chevron-down"></i></button>
+                        <div class="accordion-content">
+                            <p>Oficina gastronômica deliciosa onde cada criança confeita seus próprios mini donuts com
+                                coberturas e granulados coloridos.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header">Spa Day <i class="fa-solid fa-chevron-down"></i></button>
+                        <div class="accordion-content">
+                            <p>Um momento relaxante com direito a roupões fofos, masks faciais bem suaves, massagem leve
+                                e cuidados com as unhas.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header">Paper Squishy <i class="fa-solid fa-chevron-down"></i></button>
+                        <div class="accordion-content">
+                            <p>Criação e montagem de brinquedinhos de papel desenhados, coloridos e recheados para
+                                ficarem super macios e apertáveis.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header">Baladinha Kids <i
+                                class="fa-solid fa-chevron-down"></i></button>
+                        <div class="accordion-content">
+                            <p>Estrutura com luzes coloridas, fumaça, adereços neon e as músicas favoritas da garotada
+                                sob o comando do nosso animador.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header">Caça ao Tesouro <i
+                                class="fa-solid fa-chevron-down"></i></button>
+                        <div class="accordion-content">
+                            <p>Uma grande aventura recheada de pistas misteriosas, enigmas e mapas para desvendar o
+                                paradeiro de um baú surpresa!</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header">Festa Futebol <i class="fa-solid fa-chevron-down"></i></button>
+                        <div class="accordion-content">
+                            <p>Mini campeonato super animado, com treino divertido, cobrança de pênaltis e desafios com
+                                bola valendo medalhas.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header">Confecção de Máscaras de Carnaval <i
+                                class="fa-solid fa-chevron-down"></i></button>
+                        <div class="accordion-content">
+                            <p>As crianças soltam a imaginação usando penas, lantejoulas e muito brilho para criar suas
+                                próprias máscaras carnavalescas para cair na folia!</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header">Experiência Tecnológica <i
+                                class="fa-solid fa-chevron-down"></i></button>
+                        <div class="accordion-content">
+                            <p>Uma imersão moderna com jogos interativos, desafios digitais e atividades voltadas para a
+                                garotada conectada que ama tecnologia.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header">Caça ao Tesouro Futebol <i
+                                class="fa-solid fa-chevron-down"></i></button>
+                        <div class="accordion-content">
+                            <p>A emoção da caça ao tesouro misturada com a paixão nacional! Pistas e desafios com tema
+                                de futebol até encontrar a taça dos campeões.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header">Oficina Masterchef <i
+                                class="fa-solid fa-chevron-down"></i></button>
+                        <div class="accordion-content">
+                            <p>Os pequenos vestem o avental e colocam a mão na massa para decorar guloseimas e se
+                                tornarem verdadeiros chefs de cozinha por um dia!</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header">Oficina de Acessórios <i
+                                class="fa-solid fa-chevron-down"></i></button>
+                        <div class="accordion-content">
+                            <p>Criação de pulseiras, colares e enfeites super estilosos com miçangas e pingentes
+                                coloridos. Cada um leva sua arte de lembrança para casa.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header">Colônia de Férias <i
+                                class="fa-solid fa-chevron-down"></i></button>
+                        <div class="accordion-content">
+                            <p>Dias inesquecíveis com uma programação completa de atividades recreativas, esportes e
+                                oficinas criativas para preencher as férias com muita alegria.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header">Acampamento <i class="fa-solid fa-chevron-down"></i></button>
+                        <div class="accordion-content">
+                            <p>Aventura ao ar livre ou indoor! Montagem de barracas lúdicas, histórias ao redor de uma
+                                fogueira cenográfica e brincadeiras clássicas.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header">Recreação em Hotéis <i
+                                class="fa-solid fa-chevron-down"></i></button>
+                        <div class="accordion-content">
+                            <p>Programação especial para entreter os pequenos hóspedes com total segurança e diversão,
+                                garantindo o descanso e a tranquilidade dos pais.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header">Teatro de Fantoches <i
+                                class="fa-solid fa-chevron-down"></i></button>
+                        <div class="accordion-content">
+                            <p>Histórias mágicas e divertidas ganham vida através de bonecos carismáticos, encantando
+                                crianças de todas as idades com muita interatividade.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header">Oficina de Balangandã <i
+                                class="fa-solid fa-chevron-down"></i></button>
+                        <div class="accordion-content">
+                            <p>Oficina cultural super colorida onde as crianças montam seus próprios balangandãs de
+                                fitas e brincam fazendo movimentos incríveis no ar!</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header">Eventos Corporativos <i
+                                class="fa-solid fa-chevron-down"></i></button>
+                        <div class="accordion-content">
+                            <p>Soluções completas de entretenimento infantil para empresas, confraternizações e ações
+                                promocionais, com personagens e muita recreação.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="load-more-container">
+                    <a href="galeria.html" class="btn-ver-mais">Ver a Galeria Completa</a>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="sobre" class="about-section">
+            <div class="about-container">
+                <div class="about-image-wrapper">
+                    <div class="about-image-bg"></div>
+                    <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/Captura%20de%20tela%202026-07-01%20000840.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9DYXB0dXJhIGRlIHRlbGEgMjAyNi0wNy0wMSAwMDA4NDAucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4Mjg3NTM0MSwiZXhwIjo1MjgzMzcxMzQxfQ.UkxNYw3dswBQl9XzrMOYzKCGXI2XFdj7GhuVOgDZfhg"
+                        alt="Nossa Equipe" class="about-img">
+                </div>
+                <div class="about-content">
+                    <span class="about-tag">Felicidade Garantida</span>
+                    <h2 class="about-title">Onde a Fantasia Ganha Vida e a Diversão Não Tem Fim!</h2>
+                    <p class="about-text">
+                        O <strong>Comando da Alegria</strong> nasceu com a missão de transformar o aniversário do seu
+                        filho nel dia mais feliz do ano! Com brincadeiras lúdicas, muita energia e personagens que
+                        parecem ter saído direto dos contos de fadas, <strong>nós realizamos sonhos com amor, trazendo
+                            sorrisos e momentos mágicos que ficarão guardados para sempre na memória de toda a
+                            família!</strong>
+                    </p>
+
+                    <div class="about-highlight-box">
+                        <div class="about-feature">
+                            <div class="about-feature-icon pink"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                            <div class="about-feature-text">Figurinos Premium Impecáveis<span>Roupas idênticas às dos
+                                    cinemas e desenhos animados favoritos.</span></div>
+                        </div>
+                        <div class="about-feature">
+                            <div class="about-feature-icon blue"><i class="fa-solid fa-face-smile-beam"></i></div>
+                            <div class="about-feature-text">Recreadores Apaixonados<span>Energia contagiante com
+                                    brincadeiras que integram e divertem todas as idades.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="destaques" class="destaques-section">
+            <div class="destaques-container">
+                <span class="about-tag">Momentos Inesquecíveis</span>
+                <h2 class="about-title">Nossos Grandes Destaques</h2>
+
+                <div class="carousel-wrapper">
+                    <button class="carousel-btn prev-btn" aria-label="Anterior"><i
+                            class="fa-solid fa-chevron-left"></i></button>
+
+                    <div class="carousel-track" id="destaquesTrack">
+
+                        <div class="carousel-card">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/festadeaniver.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9mZXN0YWRlYW5pdmVyLmpwZWciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgyODc0Njg3LCJleHAiOjg3ODM4NjY2ODd9.bpMmaa7k-YepjcmSKGRMbyYNIakfK_1UGybvcqUWlXE"
+                                alt="Festas de Aniversário">
+                            <div class="carousel-content">
+                                <h3>Festas de Aniversário</h3>
+                                <p>Pacotes personalizados para aniversários.</p>
+                            </div>
+                        </div>
+
+                        <div class="carousel-card">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/Captura%20de%20tela%202026-07-01%20000509.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9DYXB0dXJhIGRlIHRlbGEgMjAyNi0wNy0wMSAwMDA1MDkucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4Mjg3NTE2NCwiZXhwIjo1MjgzMzcxMTY0fQ.gF0NXCnlpNw5H_gGeChQffILT0SCIXx2WPqmRMMyf-Y"
+                                alt="Eventos Escolares e Empresas">
+                            <div class="carousel-content">
+                                <h3>Eventos Escolares & Empresas</h3>
+                                <p>Dia das Crianças, formaturas, datas especiais, confraternizações de final de ano.</p>
+                            </div>
+                        </div>
+
+                        <div class="carousel-card">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/junina.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9qdW5pbmEuanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI4NzQzMzMsImV4cCI6MTc5MjQ2NDczM30.dheo3OC_-r7UGqc047uGiJs11sm9JCLXL7hTOD2mzxk"
+                                alt="Festas Sazonais">
+                            <div class="carousel-content">
+                                <h3>Festas Sazonais</h3>
+                                <p>Foco em datas fortes como Festa da Uva, Páscoa, Natal ou Festa Junina.</p>
+                            </div>
+                        </div>
+
+                        <div class="carousel-card">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/stish.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9zdGlzaC5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4Mjg3NDQyMSwiZXhwIjo1MjgzMzcwNDIxfQ.OHRZRHxDs8UpYq2eXHBYrsLKInGqiokC2gwuC2JR9E4"
+                                alt="Experiências Imersivas">
+                            <div class="carousel-content">
+                                <h3>Experiências Imersivas</h3>
+                                <p>Personagens vivos, oficinas criativas, "magia" e teatro.</p>
+                            </div>
+                        </div>
+
+                        <div class="carousel-card">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/colonia%20de%20ferias.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9jb2xvbmlhIGRlIGZlcmlhcy5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4Mjg3NDQ2OCwiZXhwIjo1MjgzMzcwNDY4fQ.mcrhgoDfhAt1ydJP-y27hS0z5TAn_uHJSlzX4mAPVvA"
+                                alt="Recreação e Colônia">
+                            <div class="carousel-content">
+                                <h3>Recreação & Colônia</h3>
+                                <p>Foco em períodos de férias escolares ou eventos de longa duração.</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <button class="carousel-btn next-btn" aria-label="Próximo"><i
+                            class="fa-solid fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <section id="contato-rapido" class="contact-cta-section">
+            <div class="cta-shape cta-shape-1"></div>
+            <div class="cta-shape cta-shape-2"></div>
+
+            <div class="contact-cta-card">
+                <span class="cta-urgency-tag">Vagas Limitadas</span>
+                <h2 class="contact-cta-title">Garanta a <span>Magia</span> da sua Festa!</h2>
+                <p class="contact-cta-subtitle">Nossas agendas lotam rápido! Não deixe para a última hora. Fale com
+                    nossa equipe para conferir a disponibilidade e garantir personagens inesquecíveis.</p>
+
+                <div class="cta-benefits">
+                    <span><i class="fa-solid fa-circle-check"></i> Orçamento sem compromisso</span>
+                    <span><i class="fa-solid fa-bolt"></i> Resposta rápida</span>
+                </div>
+
+                <a href="https://wa.me/5500000000000" target="_blank" class="btn-cta-whatsapp">
+                    <i class="fa-brands fa-whatsapp"></i> Chamar no WhatsApp Agora
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer" id="footer-site">
+        <div class="footer-container">
+
+            <div class="footer-col footer-col-logo">
+                <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/3422ba6e-664b-4a8a-a483-64cb728c37ea.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvMzQyMmJhNmUtNjY0Yi00YThhLWE0ODMtNjRjYjcyOGMzN2VhLnBuZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODIyNjM1MDEsImV4cCI6NDkwNDMyNzUwMX0.jZoMK-lvI9t9lzeZ5Tbzp6GtJuPn2526-d9Mn_HCxbs"
+                    alt="Logo Comando da Alegria" class="footer-logo-img">
+            </div>
+
+            <div class="footer-col">
+                <h4>Início</h4>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#personagens">Personagens</a></li>
+                    <li><a href="#servicos">Serviços</a></li>
+                    <li><a href="#destaques">Destaques</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Sobre-nós</h4>
+                <ul>
+                    <li><a href="#sobre">Nossa História</a></li>
+                    <li><a href="#experiencias-ludicas">Experiências Lúdicas</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col footer-col-contact">
+                <div class="footer-social-icons">
+                    <a href="https://wa.me/5500000000000" target="_blank" aria-label="WhatsApp"><i
+                            class="fa-brands fa-whatsapp"></i></a>
+                    <a href="https://facebook.com/" target="_blank" aria-label="Facebook"><i
+                            class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://instagram.com/" target="_blank" aria-label="Instagram"><i
+                            class="fa-brands fa-instagram"></i></a>
+                </div>
+                <a href="https://wa.me/5500000000000" target="_blank" class="btn-footer-contato">Contato</a>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            &copy; 2024 Copyright - Comando da Alegria
+        </div>
+    </footer>
+
+    <a href="https://wa.me/5500000000000" class="whatsapp-float" target="_blank" rel="noopener noreferrer"
+        aria-label="Contato via WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <div id="fotoModal" class="foto-modal">
+        <span class="foto-modal-close">&times;</span>
+        <button class="foto-modal-prev"><i class="fa-solid fa-chevron-left"></i></button>
+        <button class="foto-modal-next"><i class="fa-solid fa-chevron-right"></i></button>
+        <div class="foto-modal-content">
+            <img id="fotoModalImg" src="" alt="Foto do Serviço">
+        </div>
+    </div>
+
+    <script>
+        // Preloader
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.classList.add('fade-out');
+            }, 1600);
+        });
+
+        // Menu Mobile Toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const menuCloseBtn = document.getElementById('menuCloseBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const body = document.body;
+
+        function openMenu() {
+            mobileMenu.classList.add('open');
+            body.classList.add('menu-active');
+        }
+
+        function closeMenu() {
+            mobileMenu.classList.remove('open');
+            body.classList.remove('menu-active');
+        }
+
+        menuToggle.addEventListener('click', openMenu);
+        menuCloseBtn.addEventListener('click', closeMenu);
+
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        // FILTRO E PROCURA DE PERSONAGENS
+        const pillBtns = document.querySelectorAll('.pill-btn');
+        const searchInput = document.querySelector('.search-input');
+        const characterCards = document.querySelectorAll('.character-card');
+        const grid = document.querySelector('.characters-grid');
+        const btnVerMais = document.getElementById('btnVerMais');
+
+        const ITEMS_PER_PAGE = 8;
+        let maxVisibleItems = ITEMS_PER_PAGE;
+        let activeCategory = 'todos';
+        let currentSearchQuery = '';
+
+        function applyFilters() {
+            let matchCount = 0;
+
+            const existingNoResults = document.querySelector('.no-results');
+            if (existingNoResults) existingNoResults.remove();
+
+            characterCards.forEach(card => {
+                const category = card.getAttribute('data-category');
+                const name = card.querySelector('.character-info').textContent.toLowerCase();
+
+                const matchesCategory = (activeCategory === 'todos' || category === activeCategory);
+                const matchesSearch = name.includes(currentSearchQuery);
+
+                if (matchesCategory && matchesSearch) {
+                    matchCount++;
+                    if (matchCount <= maxVisibleItems) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            if (matchCount > maxVisibleItems) {
+                btnVerMais.style.display = 'inline-block';
+            } else {
+                btnVerMais.style.display = 'none';
+            }
+
+            if (matchCount === 0) {
+                const noResultsDiv = document.createElement('div');
+                noResultsDiv.className = 'no-results';
+                noResultsDiv.textContent = 'Nenhum personagem encontrado com esses filtros. 🎈';
+                grid.appendChild(noResultsDiv);
+            }
+        }
+
+        btnVerMais.addEventListener('click', () => {
+            maxVisibleItems += ITEMS_PER_PAGE;
+            applyFilters();
+        });
+
+        pillBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                pillBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                activeCategory = btn.getAttribute('data-cat');
+                maxVisibleItems = ITEMS_PER_PAGE;
+                applyFilters();
+            });
+        });
+
+        searchInput.addEventListener('input', (e) => {
+            currentSearchQuery = e.target.value.toLowerCase();
+            maxVisibleItems = ITEMS_PER_PAGE;
+            applyFilters();
+        });
+
+        applyFilters();
+
+        // LOGICA DE VISIBILIDADE DOS SERVIÇOS (COM VER MAIS / RECOLHER)
+        const serviceCards = document.querySelectorAll('.service-card');
+        const btnVerMaisServicos = document.getElementById('btnVerMaisServicos');
+        const SERVICES_INITIAL_LIMIT = 3;
+        let isServicesExpanded = false;
+
+        function applyServicesVisibility() {
+            serviceCards.forEach((card, index) => {
+                if (isServicesExpanded || index < SERVICES_INITIAL_LIMIT) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            if (serviceCards.length > SERVICES_INITIAL_LIMIT) {
+                btnVerMaisServicos.style.display = 'inline-block';
+            } else {
+                btnVerMaisServicos.style.display = 'none';
+            }
+        }
+
+        btnVerMaisServicos.addEventListener('click', () => {
+            isServicesExpanded = !isServicesExpanded;
+
+            if (isServicesExpanded) {
+                btnVerMaisServicos.textContent = 'Recolher Serviços';
+            } else {
+                btnVerMaisServicos.textContent = 'Ver Mais Serviços';
+                document.getElementById('servicos').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            applyServicesVisibility();
+        });
+
+        applyServicesVisibility();
+
+        // LOGICA INTERATIVA EXCLUSIVA DO ACCORDION (CAIXINHAS FAQ)
+        const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+        accordionHeaders.forEach(header => {
+            header.addEventListener('click', () => {
+                const currentItem = header.parentElement;
+                const currentContent = currentItem.querySelector('.accordion-content');
+
+                document.querySelectorAll('.accordion-item').forEach(item => {
+                    if (item !== currentItem && item.classList.contains('active')) {
+                        item.classList.remove('active');
+                        item.querySelector('.accordion-content').style.maxHeight = null;
+                    }
+                });
+
+                currentItem.classList.toggle('active');
+                if (currentItem.classList.contains('active')) {
+                    currentContent.style.maxHeight = currentContent.scrollHeight + "px";
+                } else {
+                    currentContent.style.maxHeight = null;
+                }
+            });
+        });
+
+        // LOGICA DO CARROSSEL DE DESTAQUES (INFINITO)
+        const track = document.getElementById('destaquesTrack');
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+
+        if (track && prevBtn && nextBtn) {
+            const cards = Array.from(track.children);
+            cards.forEach(card => {
+                track.appendChild(card.cloneNode(true));
+            });
+
+            nextBtn.addEventListener('click', () => {
+                const cardWidth = track.querySelector('.carousel-card').offsetWidth + 20;
+                track.style.scrollBehavior = 'smooth';
+                track.scrollBy({ left: cardWidth });
+            });
+
+            prevBtn.addEventListener('click', () => {
+                const cardWidth = track.querySelector('.carousel-card').offsetWidth + 20;
+                track.style.scrollBehavior = 'smooth';
+                track.scrollBy({ left: -cardWidth });
+            });
+
+            track.addEventListener('scroll', () => {
+                const maxScrollLeft = track.scrollWidth - track.clientWidth;
+
+                if (track.scrollLeft >= maxScrollLeft - 10) {
+                    track.style.scrollBehavior = 'auto';
+                    track.scrollLeft = track.scrollLeft - (track.scrollWidth / 2);
+                    track.style.scrollBehavior = 'smooth';
+                }
+                else if (track.scrollLeft <= 0) {
+                    track.style.scrollBehavior = 'auto';
+                    track.scrollLeft = (track.scrollWidth / 2);
+                    track.style.scrollBehavior = 'smooth';
+                }
+            });
+        }
+
+        /* ==========================================================================
+           LOGICA DO CARROSSEL DE FOTOS DOS SERVIÇOS (LIGHTBOX)
+           ========================================================================== */
+        
+        // 🚨 AQUI VOCÊ COLOCA OS LINKS DAS SUAS FOTOS! 
+        // Eu coloquei a primeira foto original do site e uma de exemplo na segunda posição.
+        // É só substituir as URLs pelas fotos que você tirou.
+        const fotosDosServicos = {
+            'recreacao': [
+                'https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/recrea.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvcmVjcmVhLmpwZWciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgyODczMjEyLCJleHAiOjUyODMzNjkyMTJ9.vtw2Glj3V9rr4uze9MwKD6SwRL5Ho_gbJcZnKmW0FZM',
+                'https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/brincadeiras.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9icmluY2FkZWlyYXMuanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI4NzMzNjcsImV4cCI6NTI4MzM2OTM2N30.7LPHhcT-iTxzAj5GrxZqOgJfLy-QSHdoiYgZGvH6Frs'
+            ],
+            'animacao': [
+                'https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/Captura%20de%20tela%202026-07-01%20001528.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9DYXB0dXJhIGRlIHRlbGEgMjAyNi0wNy0wMSAwMDE1MjgucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4Mjg3NTc1MywiZXhwIjo1MjgzMzcxNzUzfQ.JsTIBai3GrnfeKYinp7S0gTCQrnPWe7acn6Jeve8mYc',
+                'https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/Captura%20de%20tela%202026-07-01%20001748.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9DYXB0dXJhIGRlIHRlbGEgMjAyNi0wNy0wMSAwMDE3NDgucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4Mjg3NTg5NiwiZXhwIjozNjgxOTM3MTg5Nn0.uVTd7FCgUowL8jdT7Cy_wBbBrma1mw-wqxvizbKVr4k'
+            ],
+            'pintura': [
+                'https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/pintura%201.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvcGludHVyYSAxLmpwZWciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgyODczNTAxLCJleHAiOjUyODMzNjk1MDF9.W_BucGV1995XoLY3oXsbDT_GFjwM-cJMvKGqPbfbYnU',
+                'https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/pint2.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvcGludDIuanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI4NzM1NjgsImV4cCI6NTI4MzM2OTU2OH0.QicJXBnPkCmYleCiGx96R_UYWDNxxnw3yVA3rSOd8Gk'
+            ],
+            'baloes': [
+                'https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/esculturabalao1.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvZXNjdWx0dXJhYmFsYW8xLmpwZWciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgyODcyMDI3LCJleHAiOjUyODMzNjgwMjd9.KK9c3VNPpca7cKtbhwD2fnmJKPAxZJsE_RF-rUwxk9k',
+                'https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/escultura2.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvZXNjdWx0dXJhMi5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4Mjg3MjA3NSwiZXhwIjo1MjgzMzY4MDc1fQ.sOLByEEprkQcRzndVVcER_Xyj1kpTbF3oVi4Pn3Qe1s'
+            ],
+            'perna-de-pau': [
+                'https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/pernadepau.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvcGVybmFkZXBhdS5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4Mjg2OTcxOCwiZXhwIjo1MjgzMzY1NzE4fQ.c1Lx91yp6If1Kml-CzPAM1RERwQ3ohEwj9s-AjjEvUM',
+                'https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/pernadepau2.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvcGVybmFkZXBhdTIuanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI4NzE4MDcsImV4cCI6NTI4MzM2NzgwN30.Ol27H0-pSIh_XL3Y3oV32F5QcPUyNb-FTUpT8UPKGdA' // Substitua pela sua 2ª foto do perna de pau
+            ],
+            'espaco-kids': [
+                'https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/espacokds2.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9lc3BhY29rZHMyLmpwZWciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgyODczOTc5LCJleHAiOjUyODMzNjk5Nzl9.RHCTyhh6rqAZFM7B5C_nrmV2oJDVggJv7PMi1bPoN2c',
+                'https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/espacokids1.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9lc3BhY29raWRzMS5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4Mjg3NDAxMSwiZXhwIjo1MjgzMzcwMDExfQ.T3nv4Djxk42kc0oDMTciVXhebb2_HPXwza1e3Y6CDCU'
+            ],
+            'cortejos-natalinos': [
+                'https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Cortejos_Natalino.jpeg_202606251540.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9Db3J0ZWpvc19OYXRhbGluby5qcGVnXzIwMjYwNjI1MTU0MC5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjQxMjg4MywiZXhwIjo1MjgyOTA4ODgzfQ.-jpgoS2rUWVqPPb87jBwdP8d3BGc-LQbhvOMha9lXaE',
+                'https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/natalinos.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9uYXRhbGlub3MuanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI4NzI4ODAsImV4cCI6NTI4MzM2ODg4MH0.Hnrd_GFXeuC7No7O9qhIw068TvMNFAoOpyVcE2EL_OY'
+            ],
+            'encontro-encantado': [
+                'https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/RapunzelBoa2.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvUmFwdW56ZWxCb2EyLmpwZWciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgzNjQ5OTkwLCJleHAiOjM2ODIwMTQ1OTkwfQ.WbSMSt2wRhLDwB6-2FYf5e2V2iG0pvXINI7G8eo1eSw',
+                'https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Galeria/encontrorealw.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvR2FsZXJpYS9lbmNvbnRyb3JlYWx3LmpwZWciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgyODc0OTc2LCJleHAiOjUyODMzNzA5NzZ9.L1MOpliVTVuqJUdqplg6ttLnZF2NNrx4VnOi38YRIZ4'
+            ]
+        };
+
+        let indiceFotoAtual = 0;
+        let servicoAtualKey = '';
+
+        const modalFotos = document.getElementById('fotoModal');
+        const imagemDoModal = document.getElementById('fotoModalImg');
+        const fecharModalBtn = document.querySelector('.foto-modal-close');
+        const btnPrevModal = document.querySelector('.foto-modal-prev');
+        const btnNextModal = document.querySelector('.foto-modal-next');
+        const botoesAbrirFotos = document.querySelectorAll('.btn-ver-fotos');
+
+        // Função para atualizar a imagem mostrada
+        function atualizarImagemDoModal() {
+            if(fotosDosServicos[servicoAtualKey] && fotosDosServicos[servicoAtualKey].length > 0) {
+                imagemDoModal.src = fotosDosServicos[servicoAtualKey][indiceFotoAtual];
+            }
+        }
+
+        // Adiciona evento de clique em todos os botões "Ver fotos"
+        botoesAbrirFotos.forEach(botao => {
+            botao.addEventListener('click', (e) => {
+                servicoAtualKey = e.currentTarget.getAttribute('data-servico');
+                indiceFotoAtual = 0; // Sempre abre na primeira foto
+                atualizarImagemDoModal();
+                
+                modalFotos.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Trava o scroll da página de trás
+            });
+        });
+
+        // Fechar Modal
+        function fecharModalDeFotos() {
+            modalFotos.classList.remove('active');
+            document.body.style.overflow = ''; // Libera o scroll da página
+            setTimeout(() => { imagemDoModal.src = ''; }, 300); // Limpa imagem após transição
+        }
+
+        fecharModalBtn.addEventListener('click', fecharModalDeFotos);
+        
+        // Fecha se clicar no fundo escuro
+        modalFotos.addEventListener('click', (e) => {
+            if (e.target === modalFotos) {
+                fecharModalDeFotos();
+            }
+        });
+
+        // Navegação (Anterior / Próximo)
+        btnPrevModal.addEventListener('click', () => {
+            if(fotosDosServicos[servicoAtualKey]) {
+                indiceFotoAtual = (indiceFotoAtual > 0) ? indiceFotoAtual - 1 : fotosDosServicos[servicoAtualKey].length - 1;
+                atualizarImagemDoModal();
+            }
+        });
+
+        btnNextModal.addEventListener('click', () => {
+            if(fotosDosServicos[servicoAtualKey]) {
+                indiceFotoAtual = (indiceFotoAtual < fotosDosServicos[servicoAtualKey].length - 1) ? indiceFotoAtual + 1 : 0;
+                atualizarImagemDoModal();
+            }
+        });
+
+        // Navegação por teclas do teclado (Esc, Setas)
+        document.addEventListener('keydown', (e) => {
+            if(modalFotos.classList.contains('active')) {
+                if(e.key === 'Escape') fecharModalDeFotos();
+                if(e.key === 'ArrowRight') btnNextModal.click();
+                if(e.key === 'ArrowLeft') btnPrevModal.click();
+            }
+        });
+
+    </script>
+</body>
+
+</html>
