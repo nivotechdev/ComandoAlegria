@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personagens Animados - Comando da Alegria</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    
+</head>
+
+<body>
+    <header class="floating-island">
+        <div class="header-container">
+            <a href="index.html#" class="logo-link">
+                <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Design%20sem%20nome%20(14).png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvRGVzaWduIHNlbSBub21lICgxNCkucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjI2NzM5MiwiZXhwIjo0OTA0MzMxMzkyfQ.uWlYl8bEvRWtYICesH-nGWzz-EP0utXr5muWh_RpNf0"
+                    alt="Balão Logo" class="logo-img">
+            </a>
+
+            <nav class="desktop-nav">
+                <ul>
+                    <li><a href="index.html#">Início</a></li>
+                    <li><a href="personagens.html">Personagens</a></li>
+                    <li><a href="index.html#servicos">Serviços</a></li>
+                    <li><a href="index.html#sobre">Sobre Nós</a></li>
+                    <li><a href="index.html#destaques">Destaques</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <a href="index.html#contato-rapido" class="btn-orcamento">Fale Conosco</a>
+                <button class="menu-toggle" aria-label="Abrir Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="mobile-menu-overlay" id="mobileMenu">
+        <button class="menu-close-btn" id="menuCloseBtn" aria-label="Fechar Menu">&times;</button>
+
+        <div class="menu-mobile-header">
+            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/3422ba6e-664b-4a8a-a483-64cb728c37ea.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvMzQyMmJhNmUtNjY0Yi00YThhLWE0ODMtNjRjYjcyOGMzN2VhLnBuZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODIyNjM1MDEsImV4cCI6NDkwNDMyNzUwMX0.jZoMK-lvI9t9lzeZ5Tbzp6GtJuPn2526-d9Mn_HCxbs"
+                alt="Balão Destacado Menu" class="menu-logo-img">
+        </div>
+
+        <ul class="mobile-nav-links">
+            <li><a href="index.html#">Início</a></li>
+            <li><a href="personagens.html">Personagens</a></li>
+            <li><a href="index.html#servicos">Serviços</a></li>
+            <li><a href="index.html#sobre">Sobre Nós</a></li>
+            <li><a href="index.html#destaques">Destaques</a></li>
+            <li><a href="index.html#contato-rapido" class="btn-menu-orcamento">Fale Conosco</a></li>
+        </ul>
+
+        <div class="menu-social-footer">
+            <p class="menu-social-text">Siga nossa alegria!</p>
+            <div class="menu-social-icons">
+                <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer" class="icon-instagram"><i
+                        class="fa-brands fa-instagram"></i></a>
+                <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer" class="icon-facebook"><i
+                        class="fa-brands fa-facebook"></i></a>
+                <a href="https://wa.me/" target="_blank" rel="noopener noreferrer" class="icon-whatsapp"><i
+                        class="fa-brands fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <main>
+    <section id="personagens" class="characters-section characters-page">
+            <div class="characters-container">
+                <span class="about-tag">Nossos Personagens</span>
+                <h2 class="about-title characters-title">Escolha quem você quer que vá na sua festa!</h2>
+
+                <div class="filter-controls">
+                    <div class="category-pills">
+                        <button class="pill-btn active" data-cat="todos">Todos</button>
+                        <button class="pill-btn" data-cat="princesas">Princesas</button>
+                        <button class="pill-btn" data-cat="herois">Heróis</button>
+                        <button class="pill-btn" data-cat="patrulha-canina">Patrulha Canina</button>
+                        <button class="pill-btn" data-cat="disney">Disney</button>
+                        <button class="pill-btn" data-cat="pj-masks">PJ Masks</button>
+                        <button class="pill-btn" data-cat="kpop">K-POP</button>
+                        <button class="pill-btn" data-cat="natal">Natal</button>
+                        <button class="pill-btn" data-cat="pascoa">Páscoa</button>
+                        <button class="pill-btn" data-cat="outros">Outros</button>
+                    </div>
+                    <div class="search-wrapper">
+                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                        <input type="text" class="search-input" placeholder="Buscar personagem...">
+                    </div>
+                </div>
+
+                <div class="characters-grid">
+
+                    <div class="character-card" data-category="princesas">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/RapunzelBoa.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvUmFwdW56ZWxCb2EuanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODM2NDk4MjIsImV4cCI6MzY4MjAxNDU4MjJ9.8k495a87NDmqMKRkgBvcgHYttLmD1pXafxKLPCj4Nqc"
+                                alt="Rapunzel" class="character-img">
+                        </div>
+                        <div class="character-info">Rapunzel</div>
+                    </div>
+
+                    <div class="character-card" data-category="princesas">
+                        <div class="character-img-box character-carousel" data-character-carousel="elsa">
+                            <img src="../imagens/elsa%201.jpeg" alt="Elsa, foto 1 de 2" class="character-img">
+                            <button type="button" class="character-carousel-control character-carousel-prev" data-carousel-prev aria-label="Foto anterior da Elsa">
+                                <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+                            </button>
+                            <button type="button" class="character-carousel-control character-carousel-next" data-carousel-next aria-label="Próxima foto da Elsa">
+                                <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                            </button>
+                            <div class="character-carousel-indicators" aria-label="Selecionar foto da Elsa">
+                                <button type="button" class="character-carousel-indicator active" data-carousel-slide="0" aria-label="Mostrar foto 1" aria-pressed="true"></button>
+                                <button type="button" class="character-carousel-indicator" data-carousel-slide="1" aria-label="Mostrar foto 2" aria-pressed="false"></button>
+                            </div>
+                        </div>
+                        <div class="character-info">Elsa</div>
+                    </div>
+
+                    <div class="character-card" data-category="princesas">
+                        <div class="character-img-box">
+                            <img src="../imagens/elsa%20e%20ana.jpeg" alt="Elsa e Anna juntas" class="character-img">
+                        </div>
+                        <div class="character-info">Elsa e Anna</div>
+                    </div>
+
+                    <div class="character-card" data-category="disney">
+                        <div class="character-img-box">
+                            <img src="../imagens/olaf.jpeg" alt="Olaf com Elsa e Anna" class="character-img">
+                        </div>
+                        <div class="character-info">Olaf</div>
+                    </div>
+
+                    <div class="character-card" data-category="princesas">
+                        <div class="character-img-box character-carousel" data-character-carousel="anna">
+                            <img src="../imagens/anna%201.jpeg" alt="Anna, foto 1 de 2" class="character-img">
+                            <button type="button" class="character-carousel-control character-carousel-prev" data-carousel-prev aria-label="Foto anterior da Anna">
+                                <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+                            </button>
+                            <button type="button" class="character-carousel-control character-carousel-next" data-carousel-next aria-label="Próxima foto da Anna">
+                                <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                            </button>
+                            <div class="character-carousel-indicators" aria-label="Selecionar foto da Anna">
+                                <button type="button" class="character-carousel-indicator active" data-carousel-slide="0" aria-label="Mostrar foto 1" aria-pressed="true"></button>
+                                <button type="button" class="character-carousel-indicator" data-carousel-slide="1" aria-label="Mostrar foto 2" aria-pressed="false"></button>
+                            </div>
+                        </div>
+                        <div class="character-info">Anna</div>
+                    </div>
+
+                    <div class="character-card" data-category="princesas">
+                        <div class="character-img-box character-carousel" data-snow-white-carousel>
+                            <img src="../imagens/branca%20de%20neve%201.jpeg"
+                                alt="Branca de Neve, foto 1 de 3" class="character-img">
+                            <button type="button" class="character-carousel-control character-carousel-prev" data-carousel-prev aria-label="Foto anterior da Branca de Neve">
+                                <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+                            </button>
+                            <button type="button" class="character-carousel-control character-carousel-next" data-carousel-next aria-label="Próxima foto da Branca de Neve">
+                                <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                            </button>
+                            <div class="character-carousel-indicators" aria-label="Selecionar foto da Branca de Neve">
+                                <button type="button" class="character-carousel-indicator active" data-carousel-slide="0" aria-label="Mostrar foto 1" aria-pressed="true"></button>
+                                <button type="button" class="character-carousel-indicator" data-carousel-slide="1" aria-label="Mostrar foto 2" aria-pressed="false"></button>
+                                <button type="button" class="character-carousel-indicator" data-carousel-slide="2" aria-label="Mostrar foto 3" aria-pressed="false"></button>
+                            </div>
+                        </div>
+                        <div class="character-info">Branca de Neve</div>
+                    </div>
+
+                    <div class="character-card" data-category="princesas">
+                        <div class="character-img-box character-carousel" data-character-carousel="moana">
+                            <img src="../imagens/moana%201.jpeg" alt="Moana, foto 1 de 3" class="character-img">
+                            <button type="button" class="character-carousel-control character-carousel-prev" data-carousel-prev aria-label="Foto anterior da Moana">
+                                <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+                            </button>
+                            <button type="button" class="character-carousel-control character-carousel-next" data-carousel-next aria-label="Próxima foto da Moana">
+                                <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                            </button>
+                            <div class="character-carousel-indicators" aria-label="Selecionar foto da Moana">
+                                <button type="button" class="character-carousel-indicator active" data-carousel-slide="0" aria-label="Mostrar foto 1" aria-pressed="true"></button>
+                                <button type="button" class="character-carousel-indicator" data-carousel-slide="1" aria-label="Mostrar foto 2" aria-pressed="false"></button>
+                                <button type="button" class="character-carousel-indicator" data-carousel-slide="2" aria-label="Mostrar foto 3" aria-pressed="false"></button>
+                            </div>
+                        </div>
+                        <div class="character-info">Moana</div>
+                    </div>
+
+                    <div class="character-card" data-category="herois">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Batman.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9CYXRtYW4uanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI0MDM3NzIsImV4cCI6NDkwNDQ2Nzc3Mn0.MQirU10aqZ520bdZYJjSdFS-x1oPYbc2uTYu7Tsl1Ts"
+                                alt="Batman" class="character-img">
+                        </div>
+                        <div class="character-info">Batman</div>
+                    </div>
+
+                    <div class="character-card" data-category="herois">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/PowerRanger.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9Qb3dlclJhbmdlci5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjQwNDMxNCwiZXhwIjo1MjgyOTAwMzE0fQ.vI5j5TOxN2tNYezn4Bcj5ezDrG8lPtZtK_XHSXFHQb0"
+                                alt="Power Rangers" class="character-img">
+                        </div>
+                        <div class="character-info">Power Rangers</div>
+                    </div>
+
+                    <div class="character-card" data-category="herois">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/deadpool.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9kZWFkcG9vbC5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjQwMzgyMywiZXhwIjo0OTA0NDY3ODIzfQ.d5VgpCryf4g_fcimsCHdrwMQekTHwYr2cNutz_MfCiI"
+                                alt="Deadpool" class="character-img">
+                        </div>
+                        <div class="character-info">Deadpool</div>
+                    </div>
+
+                    <div class="character-card" data-category="herois">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/hulk.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9odWxrLmpwZWciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgyNDQwODAyLCJleHAiOjQ5MDQ1MDQ4MDJ9.AMBEoQKRXuYVqXZLurHXvtVrsr3MK4KKpipw-p4HrWY"
+                                alt="Hulk" class="character-img">
+                        </div>
+                        <div class="character-info">Hulk</div>
+                    </div>
+
+                    <div class="character-card" data-category="herois">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/homem%20aranha%20premium.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9ob21lbSBhcmFuaGEgcHJlbWl1bS5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjQwMzk1MCwiZXhwIjo4NzgzMzk1OTUwfQ.WXleW62MLJLxjm0R40ob1D0hwovqHSProbmGu6DtlpY"
+                                alt="Homem Aranha Premium" class="character-img">
+                        </div>
+                        <div class="character-info">Homem Aranha Premium</div>
+                    </div>
+
+                    <div class="character-card" data-category="herois">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/homem%20aranha%20classic.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9ob21lbSBhcmFuaGEgY2xhc3NpYy5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjQwMzkwMywiZXhwIjo4NzgzMzk1OTAzfQ.VrGlfSpJs82Qb2M_cjdG36VZKcqKkcW_utFDSifx1tM"
+                                alt="Homem Aranha Classic" class="character-img">
+                        </div>
+                        <div class="character-info">Homem Aranha Classic</div>
+                    </div>
+
+                    <div class="character-card" data-category="herois">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/homem%20de%20ferro.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9ob21lbSBkZSBmZXJyby5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjQwMzk3MiwiZXhwIjo1MjgyODk5OTcyfQ.mGwRsHjntreCC7_g-Y9sUVE3CsQK4sNteWx3g0zAJKg"
+                                alt="Homem de Ferro" class="character-img">
+                        </div>
+                        <div class="character-info">Homem de Ferro</div>
+                    </div>
+
+                    <div class="character-card" data-category="herois">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Lady%20BUg%20e%20Catnoir.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9MYWR5IEJVZyBlIENhdG5vaXIuanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI0MDM5OTMsImV4cCI6ODc4MzM5NTk5M30.VgX3WHDbIRlhjE6nj-S3cQCOIgfNPwqlD51muoqeT_M"
+                                alt="Lady Bug e Catnoir" class="character-img">
+                        </div>
+                        <div class="character-info">Lady Bug e Catnoir</div>
+                    </div>
+
+                    <div class="character-card" data-category="patrulha-canina">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/patrulha%20skye.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9wYXRydWxoYSBza3llLmpwZWciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgyNDA0MjIyLCJleHAiOjUyODI5MDAyMjJ9.EgeCbn96Iz-mvpafvmmSC9Gv7d9t3Nw5TbADABl-Ms8"
+                                alt="Skye" class="character-img">
+                        </div>
+                        <div class="character-info">Skye</div>
+                    </div>
+
+                    <div class="character-card" data-category="patrulha-canina">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/patrulha%20chse.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9wYXRydWxoYSBjaHNlLmpwZWciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgyNDA0MTkyLCJleHAiOjg3ODMzOTYxOTJ9.Dpsh8tX0yvxLGbA-WinU4wgq2Eoe0QA8hKKD2sN4bEM"
+                                alt="Chase" class="character-img">
+                        </div>
+                        <div class="character-info">Chase</div>
+                    </div>
+
+                    <div class="character-card" data-category="patrulha-canina">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/patrulha%20marchal.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9wYXRydWxoYSBtYXJjaGFsLmpwZWciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgyNDA0MjAzLCJleHAiOjQ5MDQ0NjgyMDN9.2t7M5lCV35xWBoOOZsvv9e7GADzJ10HiGCQLDVQ2xbM"
+                                alt="Marshal" class="character-img">
+                        </div>
+                        <div class="character-info">Marshal</div>
+                    </div>
+
+                    <div class="character-card" data-category="patrulha-canina">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/patrulha%20rublle.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9wYXRydWxoYSBydWJsbGUuanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI0MDQyMTMsImV4cCI6NTI4MjkwMDIxM30.DK9iJ0PLQFnBRkK8seDwoneAWEQi6CGHBRswUyHf2mw"
+                                alt="Rubble" class="character-img">
+                        </div>
+                        <div class="character-info">Rubble</div>
+                    </div>
+
+                    <div class="character-card" data-category="disney">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/mickey%20e%20minnie%20classic.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9taWNrZXkgZSBtaW5uaWUgY2xhc3NpYy5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjQwNDA1MSwiZXhwIjo1MjgyOTAwMDUxfQ.8rji1XRrOUiaJ-8P0s1cCTLcp4PLpsHnVSkPwE967IM"
+                                alt="Mickey e Minnie Classic" class="character-img">
+                        </div>
+                        <div class="character-info">Mickey e Minnie Classic</div>
+                    </div>
+
+                    <div class="character-card" data-category="disney">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/minnie%20%20e%20mickey%20premuim.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9taW5uaWUgIGUgbWlja2V5IHByZW11aW0uanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI0MDQxMDMsImV4cCI6NTI4MjkwMDEwM30.j5y7pu65TinMcNy_pGh6riRrk52U91djmeYhfkl_-Rs"
+                                alt="Mickey e Minnie Premium" class="character-img">
+                        </div>
+                        <div class="character-info">Mickey e Minnie Premium</div>
+                    </div>
+
+                    <div class="character-card" data-category="disney">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/mickey%20safari%20premuim.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9taWNrZXkgc2FmYXJpIHByZW11aW0uanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI0MDQwNjcsImV4cCI6NDkwNDQ2ODA2N30.CiUAUcylscYWfcAbv2fuHIEegjJhjv54XIFh_o79C7Q"
+                                alt="Mickey Safari" class="character-img">
+                        </div>
+                        <div class="character-info">Mickey Safari</div>
+                    </div>
+
+                    <div class="character-card" data-category="disney">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Poh.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9Qb2guanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI0MDQyOTksImV4cCI6NTI4MjkwMDI5OX0.rINyjWdDT7lKk0h-YZOhgE6UPl2h4GJ1mv9AL__AdDg"
+                                alt="Pooh" class="character-img">
+                        </div>
+                        <div class="character-info">Pooh</div>
+                    </div>
+
+                    <div class="character-card" data-category="disney">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Stitch.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9TdGl0Y2guanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI0MDQzOTAsImV4cCI6MTc5MTk5NDc5MH0.ZFmVXkSGGboNsHOM5bEA5mhU_DW7UccKC1qiL6ernVE"
+                                alt="Stitch" class="character-img">
+                        </div>
+                        <div class="character-info">Stitch</div>
+                    </div>
+
+                    <div class="character-card" data-category="disney">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Tigrao.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9UaWdyYW8uanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI0MDQ0MDEsImV4cCI6NTI4MjkwMDQwMX0.fn8xI-I-Mjv3HQ5odOpZOJWszTzvAmem6v4tXgf9cj8"
+                                alt="Tigrão" class="character-img">
+                        </div>
+                        <div class="character-info">Tigrão</div>
+                    </div>
+
+                    <div class="character-card" data-category="pj-masks">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/pj%20masks%20corujita.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9waiBtYXNrcyBjb3J1aml0YS5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjQwNDI3MywiZXhwIjo1MjgyOTAwMjczfQ.nqLtKZJalIZkt7Dr3GXzE4AYfxyrS0VM6AT9TB7DHR8"
+                                alt="Corujita" class="character-img">
+                        </div>
+                        <div class="character-info">Corujita (PJ Masks)</div>
+                    </div>
+
+                    <div class="character-card" data-category="pj-masks">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Pj%20masks%20Menino%20Gato.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9QaiBtYXNrcyBNZW5pbm8gR2F0by5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjQwNDI4NCwiZXhwIjo1MjgyOTAwMjg0fQ.Kd-sVVnlfEIGk_DEUCmvUdTBy8ZjupUTMFa31jGbmWE"
+                                alt="Menino Gato" class="character-img">
+                        </div>
+                        <div class="character-info">Menino Gato (PJ Masks)</div>
+                    </div>
+
+                    <div class="character-card" data-category="natal">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Ajudantes%20Natal.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9BanVkYW50ZXMgTmF0YWwuanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI0MDM2NjEsImV4cCI6NDkwNDQ2NzY2MX0.KqJVNqwMrCOabDOo1gQ4ybmyEauZk2Ys9uKqcQzgPbQ"
+                                alt="Ajudantes de Natal" class="character-img">
+                        </div>
+                        <div class="character-info">Ajudantes de Natal</div>
+                    </div>
+
+                    <div class="character-card" data-category="natal">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Cortejos%20Natalino.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9Db3J0ZWpvcyBOYXRhbGluby5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjQwMzgwOCwiZXhwIjo0OTA0NDY3ODA4fQ.SqdNbeEPVVksQTRWsbNqV2JSuqb-ha-ODyJ6KsFRIts"
+                                alt="Cortejos Natalinos" class="character-img">
+                        </div>
+                        <div class="character-info">Cortejos Natalinos</div>
+                    </div>
+
+                    <div class="character-card" data-category="natal">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Noel.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9Ob2VsLmpwZWciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgyODY5NTUzLCJleHAiOjUyODMzNjU1NTN9.MlesnFQYIsOzgGmTASO6vevaMA-gvnHc7BUXiPVd6qw"
+                                alt="Papai Noel" class="character-img">
+                        </div>
+                        <div class="character-info">Papai Noel</div>
+                    </div>
+
+                    <div class="character-card" data-category="pascoa">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/PAscoa%20coelho%201.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9QQXNjb2EgY29lbGhvIDEuanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI0MDQxNDgsImV4cCI6ODc4MzM5NjE0OH0.yg7FCOoJ5AiQEGgf764COj3UaRsMh2H0LcXnV82CgKQ"
+                                alt="Coelho da Páscoa 1" class="character-img">
+                        </div>
+                        <div class="character-info">Coelho da Páscoa</div>
+                    </div>
+
+                    <div class="character-card" data-category="pascoa">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Pascoa%20coelho%202.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9QYXNjb2EgY29lbGhvIDIuanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI0MDQxNzcsImV4cCI6NTI4MjkwMDE3N30.6tvZxetuGJlETX1R2fO1RMjJ3Da7WTvc_52exsxak70"
+                                alt="Coelho da Páscoa 2" class="character-img">
+                        </div>
+                        <div class="character-info">Coelho da Páscoa</div>
+                    </div>
+
+                    <div class="character-card" data-category="outros">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Astronauta.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9Bc3Ryb25hdXRhLmpwZWciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgyNDAzNzE4LCJleHAiOjQ5MDQ0Njc3MTh9.MVrXbAVC2Ualk1lJX1_1_7D85USvxqhSBsEG-OtgfCA"
+                                alt="Astronauta" class="character-img">
+                        </div>
+                        <div class="character-info">Astronauta</div>
+                    </div>
+
+                    <div class="character-card" data-category="outros">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/babyshark.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9iYWJ5c2hhcmsuanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI0MDM3MzMsImV4cCI6NDkwNDQ2NzczM30.gDV7KTBhYho5xvI0bl9i93r_68m0akdSrsHmy6n9QBg"
+                                alt="Baby Shark" class="character-img">
+                        </div>
+                        <div class="character-info">Baby Shark</div>
+                    </div>
+
+                    <div class="character-card" data-category="outros">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Bailarina.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9CYWlsYXJpbmEuanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI0MDM3NDksImV4cCI6NDkwNDQ2Nzc0OX0.oGQC5y3ZIWqfWCL7AUIH2XA-0hp0KrjQXVXHa8aHmwA"
+                                alt="Bailarina" class="character-img">
+                        </div>
+                        <div class="character-info">Bailarina</div>
+                    </div>
+
+                    <div class="character-card" data-category="outros">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Gabby.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9HYWJieS5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjQwMzg1NiwiZXhwIjo0OTA0NDY3ODU2fQ.UNk_ZBmJRVScVJl8kEGFf9-UEnHyGQ7EeO57uwyjylg"
+                                alt="Gabby" class="character-img">
+                        </div>
+                        <div class="character-info">Gabby</div>
+                    </div>
+
+                    <div class="character-card" data-category="outros">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Galinha%20Pintadinha.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9HYWxpbmhhIFBpbnRhZGluaGEuanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI0MDM4NjksImV4cCI6NDkwNDQ2Nzg2OX0.8Uv2eIgxsiCAHtsHmb3Dwpj_GxsAo3kUyEBLHQRakyI"
+                                alt="Galinha Pintadinha" class="character-img">
+                        </div>
+                        <div class="character-info">Galinha Pintadinha</div>
+                    </div>
+
+                    <div class="character-card" data-category="outros">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/hermione.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9oZXJtaW9uZS5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjQwMzg5MCwiZXhwIjo1MjgyODk5ODkwfQ.o6J9f4Naetn2g6nblijnSP_OGGct9kESaOPCceUcMeY"
+                                alt="Hermione" class="character-img">
+                        </div>
+                        <div class="character-info">Hermione</div>
+                    </div>
+
+                    <div class="character-card" data-category="outros">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Leao.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9MZWFvLmpwZWciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgyNDA0MDA2LCJleHAiOjg3ODMzOTYwMDZ9.lIRgxPaRaYgjWHt8wHEflQ4UfEpjMPoA70zOfFE8pcw"
+                                alt="Leão" class="character-img">
+                        </div>
+                        <div class="character-info">Leão</div>
+                    </div>
+
+                    <div class="character-card" data-category="outros">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Mario.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9NYXJpby5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjQwNDAyNiwiZXhwIjo0OTA0NDY4MDI2fQ.EXWZY_eyay67fVeUv_j-edLyokh-lm_MsLjxM2KjRL8"
+                                alt="Mario" class="character-img">
+                        </div>
+                        <div class="character-info">Mario</div>
+                    </div>
+
+                    <div class="character-card" data-category="outros">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Masha%20e%20Urso.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9NYXNoYSBlIFVyc28uanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI0MDg1MDksImV4cCI6NTI4MjkwNDUwOX0.g0Y4CqbakZlVHQthWcT3sSvY2vG-Ac2DrA2O7RMWL34"
+                                alt="Masha e o Urso" class="character-img">
+                        </div>
+                        <div class="character-info">Masha e o Urso</div>
+                    </div>
+
+                    <div class="character-card" data-category="outros">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Minion.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9NaW5pb24uanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI0MDQwOTIsImV4cCI6ODc4MzM5NjA5Mn0.H2lrfKwdJoBcOEaJc42oziNnVdEjK7BCN-0CR3TOKYg"
+                                alt="Minion" class="character-img">
+                        </div>
+                        <div class="character-info">Minion</div>
+                    </div>
+
+                    <div class="character-card" data-category="outros">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/peppa.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9wZXBwYS5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjQwNDIzMSwiZXhwIjo1MjgyOTAwMjMxfQ.0pdmaL1LVGnYKvVZMzQQ4I7KWWgPRJV_oju85EGrRkI"
+                                alt="Peppa Pig" class="character-img">
+                        </div>
+                        <div class="character-info">Peppa Pig</div>
+                    </div>
+
+                    <div class="character-card" data-category="outros">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Picapau.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9QaWNhcGF1LmpwZWciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgyNDA0MjU4LCJleHAiOjUyODI5MDAyNTh9.xAU5R8CxlvHMbj0xvd1-ZGeVbw5PI8L7mjU0ZznAwAg"
+                                alt="Pica-Pau" class="character-img">
+                        </div>
+                        <div class="character-info">Pica-Pau</div>
+                    </div>
+
+                    <div class="character-card" data-category="kpop">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Rumi.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9SdW1pLmpwZWciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgyNDA0MzM1LCJleHAiOjUyODI5MDAzMzV9.e863wQ3mdu9HbTzhViyhd0k9C2u5CPAm6YwyL6FJM4s"
+                                alt="Rumi" class="character-img">
+                        </div>
+                        <div class="character-info">Rumi</div>
+                    </div>
+
+             
+
+                    <div class="character-card" data-category="outros">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Soluco%20e%20astrid.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9Tb2x1Y28gZSBhc3RyaWQuanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI0MTMxNzcsImV4cCI6NDkwNDQ3NzE3N30.GMBloSvt1m3ytAuUArbc4s-xZKRpMwkIqqWqrGqFvN8"
+                                alt="Soluço e Astrid" class="character-img">
+                        </div>
+                        <div class="character-info">Soluço e Astrid</div>
+                    </div>
+
+                           <div class="character-card" data-category="outros">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Scooby%20do.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9TY29vYnkgZG8uanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI0MDQzNDgsImV4cCI6NTI4MjkwMDM0OH0.RRu5ASr6dXn6TcA8dFBAjOW3AF_51K4SF7aWOVsAhuk"
+                                alt="Scooby Doo" class="character-img">
+                        </div>
+                        <div class="character-info">Scooby Doo</div>
+                    </div>
+
+                     <div class="character-card" data-category="outros">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/Captura%20de%20tela%202026-06-30%20222947.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvQ2FwdHVyYSBkZSB0ZWxhIDIwMjYtMDYtMzAgMjIyOTQ3LnBuZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODI4Njk0MjUsImV4cCI6NTI4MzM2NTQyNX0.UEDb7ZTR-guhBm7b2I4i9nI5cw4UF5ZCaq2OSScY09E"
+                                alt="Divertidamente" class="character-img">
+                        </div>
+                        <div class="character-info">Divertidamente</div>
+                    </div>
+
+                    <div class="character-card" data-category="outros">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/IMAGEMPERSONAGEM/Sonic.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvSU1BR0VNUEVSU09OQUdFTS9Tb25pYy5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MjQwNDM3MiwiZXhwIjo1MjgyOTAwMzcyfQ.p62aVhxqmOUdJxUEYd5syyulU02000Z1C586ksEwNIc"
+                                alt="Sonic" class="character-img">
+                        </div>
+                        <div class="character-info">Sonic</div>
+                    </div>
+                    <div class="character-card" data-category="outros">
+                        <div class="character-img-box">
+                            <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/pikachu.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvcGlrYWNodS5qcGVnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4Mjg2OTE2MywiZXhwIjo1MjgzMzY1MTYzfQ.8DNxQXt_RQWeQKpYoD_v0V8cNttVOMqXpPchjrF97e8"
+                                alt="Pikachu" class="character-img">
+                        </div>
+                        <div class="character-info">Pikachu</div>
+                    </div>
+                </div>
+
+                <div class="load-more-container">
+                    <button id="btnVerMais" class="btn-ver-mais">Ver Mais Personagens</button>
+                </div>
+            </div>
+        </section>
+    <div class="load-more-container characters-back-link">
+        <a href="index.html" class="btn-ver-mais"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Voltar para o Início</a>
+    </div>
+</main>
+
+    <footer class="site-footer" id="footer-site">
+        <div class="footer-container">
+
+            <div class="footer-col footer-col-logo">
+                <img src="https://whfdrrdozhyavyflgaxo.supabase.co/storage/v1/object/sign/Comando%20da%20Alegria/3422ba6e-664b-4a8a-a483-64cb728c37ea.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jOWY1OGE2Ni03MDFhLTRhNDQtOWJhZC0zOGRkNmVkYTNhODAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDb21hbmRvIGRhIEFsZWdyaWEvMzQyMmJhNmUtNjY0Yi00YThhLWE0ODMtNjRjYjcyOGMzN2VhLnBuZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODIyNjM1MDEsImV4cCI6NDkwNDMyNzUwMX0.jZoMK-lvI9t9lzeZ5Tbzp6GtJuPn2526-d9Mn_HCxbs"
+                    alt="Logo Comando da Alegria" class="footer-logo-img">
+            </div>
+
+            <div class="footer-col">
+                <h4>Início</h4>
+                <ul>
+                    <li><a href="index.html#">Home</a></li>
+                    <li><a href="personagens.html">Personagens</a></li>
+                    <li><a href="index.html#servicos">Serviços</a></li>
+                    <li><a href="index.html#destaques">Destaques</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Sobre-nós</h4>
+                <ul>
+                    <li><a href="index.html#sobre">Nossa História</a></li>
+                    <li><a href="index.html#experiencias-ludicas">Experiências Lúdicas</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col footer-col-contact">
+                <div class="footer-social-icons">
+                    <a href="https://wa.me/5500000000000" target="_blank" aria-label="WhatsApp"><i
+                            class="fa-brands fa-whatsapp"></i></a>
+                    <a href="https://facebook.com/" target="_blank" aria-label="Facebook"><i
+                            class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://instagram.com/" target="_blank" aria-label="Instagram"><i
+                            class="fa-brands fa-instagram"></i></a>
+                </div>
+                <a href="https://wa.me/5500000000000" target="_blank" class="btn-footer-contato">Contato</a>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            &copy; 2024 Copyright - Comando da Alegria
+        </div>
+    </footer>
+
+    <a href="https://wa.me/5500000000000" class="whatsapp-float" target="_blank" rel="noopener noreferrer"
+        aria-label="Contato via WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <script>
+        const menuToggle = document.querySelector('.menu-toggle');
+        const menuCloseBtn = document.getElementById('menuCloseBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const body = document.body;
+
+        function openMenu() {
+            mobileMenu.classList.add('open');
+            body.classList.add('menu-active');
+        }
+
+        function closeMenu() {
+            mobileMenu.classList.remove('open');
+            body.classList.remove('menu-active');
+        }
+
+        menuToggle.addEventListener('click', openMenu);
+        menuCloseBtn.addEventListener('click', closeMenu);
+
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const categoryButtons = document.querySelectorAll('.pill-btn');
+            const searchInput = document.querySelector('.search-input');
+            const cards = Array.from(document.querySelectorAll('.character-card'));
+            const grid = document.querySelector('.characters-grid');
+            const loadMoreButton = document.getElementById('btnVerMais');
+            const itemsPerPage = 8;
+            let visibleLimit = itemsPerPage;
+            let activeCategory = 'todos';
+
+            const renderCharacters = () => {
+                let matchCount = 0;
+                const searchTerm = searchInput.value.trim().toLocaleLowerCase('pt-BR');
+                const noResults = grid.querySelector('.no-results');
+
+                if (noResults) {
+                    noResults.remove();
+                }
+
+                cards.forEach(card => {
+                    const category = card.getAttribute('data-category');
+                    const name = card.querySelector('.character-info').textContent.toLocaleLowerCase('pt-BR');
+                    const matchesCategory = activeCategory === 'todos' || category === activeCategory;
+                    const matchesSearch = name.includes(searchTerm);
+                    const isVisible = matchesCategory && matchesSearch && matchCount < visibleLimit;
+
+                    if (matchesCategory && matchesSearch) {
+                        matchCount += 1;
+                    }
+
+                    card.style.display = isVisible ? 'flex' : 'none';
+                });
+
+                loadMoreButton.style.display = matchCount > visibleLimit ? 'inline-block' : 'none';
+
+                if (matchCount === 0) {
+                    const message = document.createElement('div');
+                    message.className = 'no-results';
+                    message.textContent = 'Nenhum personagem encontrado com esses filtros.';
+                    grid.appendChild(message);
+                }
+            };
+
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    categoryButtons.forEach(item => item.classList.remove('active'));
+                    button.classList.add('active');
+                    activeCategory = button.getAttribute('data-cat');
+                    visibleLimit = itemsPerPage;
+                    renderCharacters();
+                });
+            });
+
+            searchInput.addEventListener('input', () => {
+                visibleLimit = itemsPerPage;
+                renderCharacters();
+            });
+
+            loadMoreButton.addEventListener('click', () => {
+                visibleLimit += itemsPerPage;
+                renderCharacters();
+            });
+
+            const characterCarousels = [
+                {
+                    selector: '[data-snow-white-carousel]',
+                    name: 'Branca de Neve',
+                    images: [
+                        '../imagens/branca%20de%20neve%201.jpeg',
+                        '../imagens/branca%20de%20neve%202.jpeg',
+                        '../imagens/branca%20de%20neve%203.jpeg'
+                    ]
+                },
+                {
+                    selector: '[data-character-carousel="anna"]',
+                    name: 'Anna',
+                    images: [
+                        '../imagens/anna%201.jpeg',
+                        '../imagens/anna%202.jpeg'
+                    ]
+                },
+                {
+                    selector: '[data-character-carousel="elsa"]',
+                    name: 'Elsa',
+                    images: [
+                        '../imagens/elsa%201.jpeg',
+                        '../imagens/elsa%202.jpeg'
+                    ]
+                },
+                {
+                    selector: '[data-character-carousel="moana"]',
+                    name: 'Moana',
+                    images: [
+                        '../imagens/moana%201.jpeg',
+                        '../imagens/moana%202.jpeg',
+                        '../imagens/moana%203.jpeg'
+                    ]
+                }
+            ];
+
+            characterCarousels.forEach(({ selector, name, images }) => {
+                const carousel = document.querySelector(selector);
+                const image = carousel.querySelector('.character-img');
+                const indicators = Array.from(carousel.querySelectorAll('.character-carousel-indicator'));
+                let currentIndex = 0;
+
+                const showImage = index => {
+                    currentIndex = (index + images.length) % images.length;
+                    image.src = images[currentIndex];
+                    image.alt = `${name}, foto ${currentIndex + 1} de ${images.length}`;
+
+                    indicators.forEach((indicator, indicatorIndex) => {
+                        const isActive = indicatorIndex === currentIndex;
+                        indicator.classList.toggle('active', isActive);
+                        indicator.setAttribute('aria-pressed', String(isActive));
+                    });
+                };
+
+                carousel.querySelector('[data-carousel-prev]').addEventListener('click', () => {
+                    showImage(currentIndex - 1);
+                });
+
+                carousel.querySelector('[data-carousel-next]').addEventListener('click', () => {
+                    showImage(currentIndex + 1);
+                });
+
+                indicators.forEach((indicator, index) => {
+                    indicator.addEventListener('click', () => showImage(index));
+                });
+            });
+
+            renderCharacters();
+        });
+    </script>
+
+</body>
+
+</html>
