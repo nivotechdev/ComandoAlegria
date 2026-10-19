@@ -109,7 +109,7 @@
 
                     <div class="character-card" data-category="princesas">
                         <div class="character-img-box character-carousel" data-character-carousel="elsa">
-                            <img src="../imagens/elsa%201.jpeg" alt="Elsa, foto 1 de 2" class="character-img">
+                            <img src="imagens/elsa%201.jpeg" alt="Elsa, foto 1 de 2" class="character-img">
                             <button type="button" class="character-carousel-control character-carousel-prev" data-carousel-prev aria-label="Foto anterior da Elsa">
                                 <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
                             </button>
@@ -126,21 +126,21 @@
 
                     <div class="character-card" data-category="princesas">
                         <div class="character-img-box">
-                            <img src="../imagens/elsa%20e%20ana.jpeg" alt="Elsa e Anna juntas" class="character-img">
+                            <img src="imagens/elsa%20e%20ana.jpeg" alt="Elsa e Anna juntas" class="character-img">
                         </div>
                         <div class="character-info">Elsa e Anna</div>
                     </div>
 
                     <div class="character-card" data-category="disney">
                         <div class="character-img-box">
-                            <img src="../imagens/olaf.jpeg" alt="Olaf com Elsa e Anna" class="character-img">
+                            <img src="imagens/olaf.jpeg" alt="Olaf com Elsa e Anna" class="character-img">
                         </div>
                         <div class="character-info">Olaf</div>
                     </div>
 
                     <div class="character-card" data-category="princesas">
                         <div class="character-img-box character-carousel" data-character-carousel="anna">
-                            <img src="../imagens/anna%201.jpeg" alt="Anna, foto 1 de 2" class="character-img">
+                            <img src="imagens/anna%201.jpeg" alt="Anna, foto 1 de 2" class="character-img">
                             <button type="button" class="character-carousel-control character-carousel-prev" data-carousel-prev aria-label="Foto anterior da Anna">
                                 <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
                             </button>
@@ -157,7 +157,7 @@
 
                     <div class="character-card" data-category="princesas">
                         <div class="character-img-box character-carousel" data-snow-white-carousel>
-                            <img src="../imagens/branca%20de%20neve%201.jpeg"
+                            <img src="imagens/branca%20de%20neve%201.jpeg"
                                 alt="Branca de Neve, foto 1 de 3" class="character-img">
                             <button type="button" class="character-carousel-control character-carousel-prev" data-carousel-prev aria-label="Foto anterior da Branca de Neve">
                                 <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
@@ -176,7 +176,7 @@
 
                     <div class="character-card" data-category="princesas">
                         <div class="character-img-box character-carousel" data-character-carousel="moana">
-                            <img src="../imagens/moana%201.jpeg" alt="Moana, foto 1 de 3" class="character-img">
+                            <img src="imagens/moana%201.jpeg" alt="Moana, foto 1 de 3" class="character-img">
                             <button type="button" class="character-carousel-control character-carousel-prev" data-carousel-prev aria-label="Foto anterior da Moana">
                                 <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
                             </button>
@@ -623,6 +623,7 @@
         });
     </script>
 
+    <script src="fit-photos.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const categoryButtons = document.querySelectorAll('.pill-btn');
@@ -692,34 +693,34 @@
                     selector: '[data-snow-white-carousel]',
                     name: 'Branca de Neve',
                     images: [
-                        '../imagens/branca%20de%20neve%201.jpeg',
-                        '../imagens/branca%20de%20neve%202.jpeg',
-                        '../imagens/branca%20de%20neve%203.jpeg'
+                        'imagens/branca%20de%20neve%201.jpeg',
+                        'imagens/branca%20de%20neve%202.jpeg',
+                        'imagens/branca%20de%20neve%203.jpeg'
                     ]
                 },
                 {
                     selector: '[data-character-carousel="anna"]',
                     name: 'Anna',
                     images: [
-                        '../imagens/anna%201.jpeg',
-                        '../imagens/anna%202.jpeg'
+                        'imagens/anna%201.jpeg',
+                        'imagens/anna%202.jpeg'
                     ]
                 },
                 {
                     selector: '[data-character-carousel="elsa"]',
                     name: 'Elsa',
                     images: [
-                        '../imagens/elsa%201.jpeg',
-                        '../imagens/elsa%202.jpeg'
+                        'imagens/elsa%201.jpeg',
+                        'imagens/elsa%202.jpeg'
                     ]
                 },
                 {
                     selector: '[data-character-carousel="moana"]',
                     name: 'Moana',
                     images: [
-                        '../imagens/moana%201.jpeg',
-                        '../imagens/moana%202.jpeg',
-                        '../imagens/moana%203.jpeg'
+                        'imagens/moana%201.jpeg',
+                        'imagens/moana%202.jpeg',
+                        'imagens/moana%203.jpeg'
                     ]
                 }
             ];
