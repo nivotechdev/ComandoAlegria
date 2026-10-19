@@ -667,7 +667,8 @@
         const fecharModalBtn = document.querySelector('.foto-modal-close');
         const btnPrevModal = document.querySelector('.foto-modal-prev');
         const btnNextModal = document.querySelector('.foto-modal-next');
-        const botoesAbrirFotos = document.querySelectorAll('.btn-ver-fotos');
+        // Só os botões "Ver fotos" (com data-servico) abrem a lightbox; o card de Personagens é só um link
+        const botoesAbrirFotos = document.querySelectorAll('.btn-ver-fotos[data-servico]');
 
         // Função para atualizar a imagem mostrada
         function atualizarImagemDoModal() {

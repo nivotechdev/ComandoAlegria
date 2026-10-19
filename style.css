@@ -1265,6 +1265,10 @@
                 border-radius: 22px;
             }
 
+            .ludicas-slide img {
+                max-height: none;
+            }
+
             .ludicas-carousel-btn {
                 width: 40px;
                 height: 40px;
@@ -1284,8 +1288,9 @@
                 border-radius: 22px;
             }
 
+            /* No celular, a foto ocupa a largura toda do slide, sem ficar menor que as outras */
             .ludicas-slide img {
-                max-height: 420px;
+                max-height: none;
             }
 
             .btn-ludicas-whatsapp {
