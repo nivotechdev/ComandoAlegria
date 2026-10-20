@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Comando da Alegria</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet">
@@ -554,13 +554,6 @@
                 const slideStep = slide.offsetWidth + parseFloat(getComputedStyle(ludicasTrack).columnGap);
                 const currentIndex = Math.round(ludicasTrack.scrollLeft / slideStep);
 
-                // A altura do carrossel acompanha a foto atual, para não sobrar espaço vazio
-                // Só ajusta quando a foto já carregou (altura 0 deixaria a área de deslize vazia)
-                const currentSlide = ludicasSlides[Math.min(currentIndex, ludicasSlides.length - 1)];
-                if (currentSlide.offsetHeight) {
-                    ludicasTrack.style.height = (currentSlide.offsetHeight + 28) + 'px';
-                }
-
                 ludicasStatus.textContent = `Foto ${currentIndex + 1} de ${ludicasSlides.length}`;
                 ludicasPrev.disabled = currentIndex === 0;
                 ludicasNext.disabled = currentIndex >= ludicasSlides.length - 1;
@@ -575,8 +568,6 @@
             ludicasPrev.addEventListener('click', () => moveLudicasCarousel(-1));
             ludicasNext.addEventListener('click', () => moveLudicasCarousel(1));
             ludicasTrack.addEventListener('scroll', updateLudicasCarousel, { passive: true });
-            // Ao carregar cada foto, a altura do slide muda; o carrossel precisa se ajustar
-            ludicasSlides.forEach(slide => slide.querySelector('img').addEventListener('load', updateLudicasCarousel));
             window.addEventListener('resize', updateLudicasCarousel);
             updateLudicasCarousel();
         }
