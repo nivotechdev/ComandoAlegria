@@ -1155,6 +1155,7 @@
 
         .ludicas-carousel-track {
             display: flex;
+            min-height: 220px;
             align-items: flex-start;
             gap: 20px;
             overflow-x: auto;

@@ -555,8 +555,11 @@
                 const currentIndex = Math.round(ludicasTrack.scrollLeft / slideStep);
 
                 // A altura do carrossel acompanha a foto atual, para não sobrar espaço vazio
+                // Só ajusta quando a foto já carregou (altura 0 deixaria a área de deslize vazia)
                 const currentSlide = ludicasSlides[Math.min(currentIndex, ludicasSlides.length - 1)];
-                ludicasTrack.style.height = (currentSlide.offsetHeight + 28) + 'px';
+                if (currentSlide.offsetHeight) {
+                    ludicasTrack.style.height = (currentSlide.offsetHeight + 28) + 'px';
+                }
 
                 ludicasStatus.textContent = `Foto ${currentIndex + 1} de ${ludicasSlides.length}`;
                 ludicasPrev.disabled = currentIndex === 0;
