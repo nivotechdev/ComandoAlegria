@@ -446,52 +446,6 @@
             max-width: 480px;
         }
 
-        .hero-buttons {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            gap: 16px;
-        }
-
-        .btn-hero {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            padding: 18px 28px;
-            border-radius: 40px;
-            text-decoration: none;
-            font-weight: 900;
-            font-size: 1.1rem;
-            letter-spacing: 0.8px;
-            text-transform: uppercase;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
-            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: none;
-        }
-
-        .btn-pink {
-            background: linear-gradient(135deg, #ff2a74, #ff5b94);
-            color: #fff;
-            border-bottom: 4px solid #c91450;
-        }
-
-        .btn-green {
-            background: linear-gradient(135deg, #00c853, #26e073);
-            color: #fff;
-            border-bottom: 4px solid #00963e;
-        }
-
-        .btn-hero:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.22);
-        }
-
-        .btn-hero:active {
-            transform: translateY(-1px);
-            border-bottom-width: 1px;
-        }
-
         /* ==========================================================================
            TRANSIÇÕES DE DEGRADÊ ENTRE AS SEÇÕES (CONTINUIDADE SUAVIZADA)
            ========================================================================== */
@@ -547,8 +501,8 @@
 
         .mission-values-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
             margin-top: 40px;
         }
 
@@ -596,9 +550,92 @@
 
         .mission-value-card p {
             color: #555;
-            font-size: 1rem;
+            font-size: 1.05rem;
+            font-weight: 600;
+            line-height: 1.7;
+        }
+
+        .mission-value-card strong { font-weight: 800; }
+        .hl-purple { color: #3b2fa0; }
+        .hl-pink { color: #d6246e; }
+        .hl-cyan { color: #0e8aa6; }
+        .hl-orange { color: #d98a0b; }
+        .hl-green { color: #2e7d32; }
+
+        .values-block { margin-top: 64px; }
+
+        .values-title {
+            color: #222;
+            font-size: 1.6rem;
+            font-weight: 900;
+            margin-bottom: 8px;
+        }
+
+        .values-intro {
+            color: #555;
             font-weight: 600;
             line-height: 1.6;
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        .value-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 24px 22px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+            text-align: left;
+            border-left: 5px solid var(--vc);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .value-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .value-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--vc);
+            color: #fff;
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+        }
+
+        .value-card h4 {
+            color: var(--vc);
+            font-size: 1.05rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .value-card p {
+            color: #555;
+            font-size: 0.98rem;
+            font-weight: 600;
+            line-height: 1.55;
+        }
+
+        @media (min-width: 640px) {
+            .values-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (min-width: 992px) {
+            .values-grid { grid-template-columns: repeat(3, 1fr); }
         }
 
         /* ------------------------------------ */
@@ -2027,18 +2064,6 @@
             .hero-card {
                 padding: 45px 40px;
                 border-radius: 45px;
-            }
-
-            .hero-buttons {
-                flex-direction: row;
-                justify-content: center;
-                gap: 20px;
-            }
-
-            .btn-hero {
-                width: auto;
-                min-width: 240px;
-                padding: 18px 32px;
             }
 
             .balloon-container {
