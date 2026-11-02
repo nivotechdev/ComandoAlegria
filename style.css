@@ -523,100 +523,154 @@
             border-color: #00b4d8;
         }
 
-        .values-card {
-            border-color: #00c853;
+        .values-block {
+            margin-top: 56px;
         }
 
-        .mission-value-icon {
-            color: #ff2a74;
-            font-size: 1.5rem;
-            margin-bottom: 16px;
-        }
-
-        .vision-card .mission-value-icon {
-            color: #00b4d8;
-        }
-
-        .values-card .mission-value-icon {
-            color: #00c853;
-        }
-
-        .mission-value-card h3 {
+        .values-title {
             color: #222;
-            font-size: 1.25rem;
+            font-size: 1.6rem;
             font-weight: 900;
-            margin-bottom: 10px;
-        }
-
-        .mission-value-card p {
-            color: #555;
-            font-size: 1.05rem;
-            font-weight: 600;
-            line-height: 1.7;
-        }
-
-        .mission-value-card strong { font-weight: 800; }
-        .hl-purple { color: #3b2fa0; }
-        .hl-pink { color: #d6246e; }
-        .hl-cyan { color: #0e8aa6; }
-        .hl-orange { color: #d98a0b; }
-        .hl-green { color: #2e7d32; }
-
-        .values-card {
-            grid-column: 1 / -1;
-        }
-
-        .values-intro {
             margin-bottom: 8px;
         }
 
-        .values-list {
-            list-style: none;
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 0 32px;
-            margin-top: 16px;
-            padding: 0;
+        .values-intro {
+            color: #555;
+            font-weight: 600;
+            line-height: 1.6;
+            max-width: 520px;
+            margin: 0 auto;
         }
 
-        .value-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            padding: 12px 0;
-            border-top: 1px solid #f1f1f1;
+        .values-carousel {
+            position: relative;
+            margin-top: 32px;
+        }
+
+        .values-track {
+            --gap: 20px;
+            --per-view: 1;
+            display: grid;
+            grid-auto-flow: column;
+            grid-auto-columns: calc((100% - (var(--per-view) - 1) * var(--gap)) / var(--per-view));
+            column-gap: var(--gap);
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+            padding: 6px 4px 22px;
+            margin: 0 -4px;
+            outline: none;
+        }
+
+        .values-track::-webkit-scrollbar { display: none; }
+
+        .value-card {
+            scroll-snap-align: start;
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 24px 22px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+            text-align: left;
+            border-left: 5px solid var(--vc);
         }
 
         .value-icon {
-            flex: 0 0 auto;
-            width: 38px;
-            height: 38px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
-            background: color-mix(in srgb, var(--vc) 14%, #fff);
-            color: var(--vc);
-            font-size: 1rem;
+            background: var(--vc);
+            color: #fff;
+            font-size: 1.2rem;
+            margin-bottom: 12px;
         }
 
-        .value-item h4 {
-            color: #222;
+        .value-card h4 {
+            color: var(--vc);
             font-size: 1.05rem;
             font-weight: 900;
-            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
         }
 
-        .value-item p {
+        .value-card p {
             color: #555;
-            font-size: 1rem;
+            font-size: 0.98rem;
             font-weight: 600;
-            line-height: 1.6;
+            line-height: 1.55;
+        }
+
+        .values-nav {
+            position: absolute;
+            top: calc(50% - 22px);
+            z-index: 2;
+            width: 44px;
+            height: 44px;
+            border: none;
+            border-radius: 50%;
+            background: #ffffff;
+            color: #ff2a74;
+            font-size: 1rem;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+            cursor: pointer;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .values-prev { left: -10px; }
+        .values-next { right: -10px; }
+        .values-nav:hover:not(:disabled) { transform: scale(1.08); }
+        .values-nav:disabled { opacity: 0; pointer-events: none; }
+        .values-nav:focus-visible, .values-dot:focus-visible { outline: 3px solid #ff2a74; outline-offset: 2px; }
+
+        .values-dots {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .values-dot {
+            width: 10px;
+            height: 10px;
+            padding: 0;
+            border: none;
+            border-radius: 10px;
+            background: #e3c9d6;
+            cursor: pointer;
+            transition: width 0.25s ease, background 0.25s ease;
+        }
+
+        .values-dot[aria-selected="true"] {
+            width: 28px;
+            background: #ff2a74;
+        }
+
+        @media (max-width: 599px) {
+            .values-nav { display: none; }
+        }
+
+        @media (min-width: 600px) {
+            .values-track { --per-view: 2; }
+        }
+
+        @media (min-width: 900px) {
+            .values-track { --per-view: 3; }
+            .values-prev { left: -22px; }
+            .values-next { right: -22px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .values-track { scroll-behavior: auto; }
+            .values-dot, .values-nav { transition: none; }
         }
 
         @media (min-width: 768px) {
             .mission-values-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-            .values-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
         }
 
         /* ------------------------------------ */
