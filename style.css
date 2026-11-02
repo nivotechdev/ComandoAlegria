@@ -581,61 +581,133 @@
 
         .values-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 16px;
-            margin-top: 32px;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+            margin: 28px auto 0;
+            max-width: 760px;
         }
 
-        .value-card {
+        .value-chip {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 12px 8px;
+            min-width: 0;
+            text-align: center;
             background: #ffffff;
-            border-radius: 20px;
-            padding: 24px 22px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-            text-align: left;
-            border-left: 5px solid var(--vc);
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            border: 2px solid transparent;
+            border-radius: 16px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+            color: #333;
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 800;
+            line-height: 1.2;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
         }
 
-        .value-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .value-icon {
+        .value-chip i {
+            flex: 0 0 auto;
+            width: 32px;
+            height: 32px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 48px;
-            height: 48px;
+            border-radius: 50%;
+            background: color-mix(in srgb, var(--vc) 14%, #fff);
+            color: var(--vc);
+            font-size: 0.95rem;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .value-chip:last-child:nth-child(odd) {
+            grid-column: 1 / -1;
+        }
+
+        .value-chip:hover {
+            transform: translateY(-2px);
+        }
+
+        .value-chip:focus-visible {
+            outline: 3px solid var(--vc);
+            outline-offset: 2px;
+        }
+
+        .value-chip[aria-selected="true"] {
+            background: var(--vc);
+            color: #fff;
+            box-shadow: 0 8px 20px color-mix(in srgb, var(--vc) 40%, transparent);
+        }
+
+        .value-chip[aria-selected="true"] i {
+            background: rgba(255, 255, 255, 0.25);
+            color: #fff;
+        }
+
+        .value-detail {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            max-width: 760px;
+            margin: 18px auto 0;
+            padding: 22px 24px;
+            background: #ffffff;
+            border-left: 5px solid var(--vc);
+            border-radius: 20px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+            text-align: left;
+        }
+
+        .value-detail.is-changing {
+            animation: valueFade 0.35s ease;
+        }
+
+        @keyframes valueFade {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: none; }
+        }
+
+        .value-detail-icon {
+            flex: 0 0 auto;
+            width: 52px;
+            height: 52px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             border-radius: 50%;
             background: var(--vc);
             color: #fff;
-            font-size: 1.2rem;
-            margin-bottom: 12px;
+            font-size: 1.3rem;
         }
 
-        .value-card h4 {
+        .value-detail h4 {
             color: var(--vc);
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             font-weight: 900;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
-        .value-card p {
+        .value-detail p {
             color: #555;
-            font-size: 0.98rem;
+            font-size: 1rem;
             font-weight: 600;
             line-height: 1.55;
         }
 
         @media (min-width: 640px) {
-            .values-grid { grid-template-columns: repeat(2, 1fr); }
+            .values-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+            .value-chip:last-child:nth-child(odd) { grid-column: auto; }
+            .value-chip { flex-direction: row; justify-content: flex-start; text-align: left; gap: 10px; font-size: 0.95rem; padding: 12px 16px; }
         }
 
-        @media (min-width: 992px) {
-            .values-grid { grid-template-columns: repeat(3, 1fr); }
+        @media (prefers-reduced-motion: reduce) {
+            .value-detail.is-changing { animation: none; }
+            .value-chip { transition: none; }
         }
 
         /* ------------------------------------ */
