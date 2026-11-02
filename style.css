@@ -584,7 +584,7 @@
             align-items: flex-start;
             gap: 12px;
             padding: 12px 0;
-            border-top: 1px solid #f0e4ea;
+            border-top: 1px solid #f1f1f1;
         }
 
         .value-icon {
@@ -601,20 +601,17 @@
         }
 
         .value-item h4 {
-            color: var(--vc);
-            font-size: 0.95rem;
+            color: #222;
+            font-size: 1.05rem;
             font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 0.4px;
-            margin-bottom: 2px;
+            margin-bottom: 4px;
         }
 
-        .value-item .value-item-text,
         .value-item p {
             color: #555;
-            font-size: 0.92rem;
+            font-size: 1rem;
             font-weight: 600;
-            line-height: 1.45;
+            line-height: 1.6;
         }
 
         @media (min-width: 768px) {
